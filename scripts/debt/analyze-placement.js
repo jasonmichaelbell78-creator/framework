@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Analyze placement of all MASTER_DEBT items across planning documents.
  * Verifies every open item is assigned to a sprint or roadmap-bound category.

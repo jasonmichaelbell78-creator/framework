@@ -27,12 +27,25 @@
  * Tier definitions are configurable via TIER_DEFINITIONS below.
  */
 
-import { readFileSync, existsSync, readdirSync, statSync, lstatSync, realpathSync } from 'node:fs';
-import { join, dirname, basename, relative, extname, isAbsolute, resolve, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+const {
+  readFileSync,
+  existsSync,
+  readdirSync,
+  statSync,
+  lstatSync,
+  realpathSync,
+} = require('node:fs');
+const {
+  join,
+  dirname,
+  basename,
+  relative,
+  extname,
+  isAbsolute,
+  resolve,
+  sep,
+} = require('node:path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
 
 const args = process.argv.slice(2);

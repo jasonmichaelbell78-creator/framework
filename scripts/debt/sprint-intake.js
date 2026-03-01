@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * TDMS Sprint Intake -- finds unplaced MASTER_DEBT items and assigns to sprints
  *

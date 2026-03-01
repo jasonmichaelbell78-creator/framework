@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Validate MASTER_DEBT.jsonl schema
  *

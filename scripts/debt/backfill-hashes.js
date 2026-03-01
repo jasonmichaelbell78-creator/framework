@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Backfill missing content_hash values in MASTER_DEBT.jsonl
  *

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Bulk resolve multiple technical debt items
  *

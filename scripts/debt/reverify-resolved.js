@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 
 /**
  * Re-verify RESOLVED items flagged as "possibly unresolved" by the resolution audit.

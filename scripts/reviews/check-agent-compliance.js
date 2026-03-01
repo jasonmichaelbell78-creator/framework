@@ -16,13 +16,10 @@
  * File patterns and agent expectations are configurable below.
  */
 
-import { readFileSync, existsSync } from 'node:fs';
-import { execSync } from 'node:child_process';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+const { readFileSync, existsSync } = require('node:fs');
+const { execSync } = require('node:child_process');
+const { join } = require('node:path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..', '..');
 
 const args = process.argv.slice(2);

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Ingest Cleaned Intake Items into TDMS
  *

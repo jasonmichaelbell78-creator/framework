@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 
 /**
  * verify-resolutions.js -- Audit item statuses in MASTER_DEBT.jsonl

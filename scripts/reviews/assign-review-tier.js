@@ -20,9 +20,8 @@
  * to match your project structure.
  */
 
-import { readFileSync, existsSync, realpathSync } from 'node:fs';
-import { resolve, relative, isAbsolute } from 'node:path';
-import { pathToFileURL } from 'node:url';
+const { readFileSync, existsSync, realpathSync } = require('node:fs');
+const { resolve, relative, isAbsolute } = require('node:path');
 
 function sanitizePath(filePath) {
   return String(filePath)
@@ -389,8 +388,7 @@ function main() {
 
 let isMainModule = false;
 try {
-  isMainModule =
-    !!process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
+  isMainModule = !!process.argv[1] && resolve(process.argv[1]) === __filename;
 } catch {
   isMainModule = false;
 }
@@ -399,4 +397,9 @@ if (isMainModule) {
   main();
 }
 
-export { assignReviewTier, assignTierByPath, checkEscalationTriggers, checkForbiddenPatterns };
+module.exports = {
+  assignReviewTier,
+  assignTierByPath,
+  checkEscalationTriggers,
+  checkForbiddenPatterns,
+};

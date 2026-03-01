@@ -1,4 +1,3 @@
-/* global __dirname */
 /**
  * Security Helpers Library
  *

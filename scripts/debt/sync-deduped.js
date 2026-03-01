@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Smart sync from MASTER_DEBT.jsonl to deduped.jsonl
  *

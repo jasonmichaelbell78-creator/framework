@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * reconcile-roadmap.js - Step 9: Reconcile ROADMAP.md with TDMS
  *

@@ -55,7 +55,7 @@ const REDACTED = '[REDACTED]';
  * @param {boolean} [options.verbose=false] - Return full message in trusted contexts
  * @returns {string} - Sanitized error message safe for logging
  */
-export function sanitizeError(error, options = {}) {
+function sanitizeError(error, options = {}) {
   const {
     // preserveStackInDev reserved for future: preserve stack in dev mode
     verbose = false,
@@ -96,7 +96,7 @@ export function sanitizeError(error, options = {}) {
  * @param {object} options - Configuration options
  * @returns {object} - Sanitized error object
  */
-export function sanitizeErrorForJson(error, options = {}) {
+function sanitizeErrorForJson(error, options = {}) {
   const message = sanitizeError(error, options);
 
   return {
@@ -113,7 +113,7 @@ export function sanitizeErrorForJson(error, options = {}) {
  * @param {string} prefix - Prefix for log messages (e.g., script name)
  * @returns {object} - Logger object with error, warn methods
  */
-export function createSafeLogger(prefix = '') {
+function createSafeLogger(prefix = '') {
   const formatPrefix = prefix ? `[${prefix}] ` : '';
 
   return {
@@ -138,12 +138,12 @@ export function createSafeLogger(prefix = '') {
  * @param {unknown} error - The caught error
  * @returns {string} - Sanitized error message
  */
-export function safeErrorMessage(error) {
+function safeErrorMessage(error) {
   return sanitizeError(error);
 }
 
-// CommonJS compatibility for scripts that don't use ES modules
-export default {
+// CommonJS compatibility
+module.exports = {
   sanitizeError,
   sanitizeErrorForJson,
   createSafeLogger,

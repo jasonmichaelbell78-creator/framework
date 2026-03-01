@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * TDMS Master Consolidation Pipeline
  *

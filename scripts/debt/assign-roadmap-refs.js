@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Bulk-assign roadmap_ref to MASTER_DEBT.jsonl items
  *

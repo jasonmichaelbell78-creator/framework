@@ -9,12 +9,9 @@
  *   node scripts/debt/sync-roadmap-refs.js               # Report + suggest fixes
  */
 
-import { readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+const { readFileSync, existsSync } = require('node:fs');
+const { resolve } = require('node:path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, '../..');
 
 const MASTER_DEBT_PATH = resolve(ROOT, 'docs/technical-debt/MASTER_DEBT.jsonl');

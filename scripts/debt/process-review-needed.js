@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 
 /**
  * Process review-needed.jsonl — Step 0e of Technical Debt Resolution Plan.

@@ -97,13 +97,39 @@ function isVarAssignedToTmp(argNode, renameNode) {
   return false;
 }
 
-/** Check if a renameSync first arg references a .tmp path (directly or via variable) */
-function isRenameSyncFromTmp(n) {
+/** Compare two AST nodes for structural equivalence (identifiers, literals, member expressions) */
+function astNodesMatch(a, b) {
+  if (!a || !b || a.type !== b.type) return false;
+  if (a.type === 'Identifier') return a.name === b.name;
+  if (a.type === 'Literal') return a.value === b.value;
+  if (a.type === 'MemberExpression') {
+    return (
+      a.computed === b.computed &&
+      astNodesMatch(a.object, b.object) &&
+      astNodesMatch(a.property, b.property)
+    );
+  }
+  return false;
+}
+
+/** Check if a renameSync first arg references a .tmp path and its destination matches writeTarget */
+function isRenameSyncFromTmpToTarget(n, writeTarget) {
   if (n.type !== 'CallExpression' || getCalleeName(n.callee) !== 'renameSync') return false;
   const firstArg = n.arguments?.[0];
-  if (!firstArg) return false;
-  if (isWritingToTmpFile(firstArg)) return true;
-  return firstArg.type === 'Identifier' && isVarAssignedToTmp(firstArg, n);
+  const secondArg = n.arguments?.[1];
+  if (!firstArg || !secondArg) return false;
+  const fromTmp =
+    isWritingToTmpFile(firstArg) ||
+    (firstArg.type === 'Identifier' && isVarAssignedToTmp(firstArg, n));
+  if (!fromTmp) return false;
+  // If writeTarget is provided, verify the rename destination matches the write target
+  if (writeTarget) return astNodesMatch(secondArg, writeTarget);
+  return true;
+}
+
+/** Check if a renameSync first arg references a .tmp path (directly or via variable) */
+function isRenameSyncFromTmp(n) {
+  return isRenameSyncFromTmpToTarget(n, null);
 }
 
 function containsRenameSyncFromTmp(node) {
@@ -114,9 +140,20 @@ function containsRenameSyncFromTmp(node) {
   return found;
 }
 
+function containsRenameSyncFromTmpToTarget(node, writeTarget) {
+  let found = false;
+  walkAstNodes(node, (n) => {
+    if (!found && isRenameSyncFromTmpToTarget(n, writeTarget)) found = true;
+  });
+  return found;
+}
+
 function hasRenameSyncNearby(block, targetNode) {
   const body = block.body;
   if (!Array.isArray(body)) return false;
+
+  // The first argument of writeFileSync is the target path
+  const writeTarget = targetNode.arguments?.[0];
 
   // Walk up from targetNode to find containing statement in the block
   let containingStmt = targetNode;
@@ -125,10 +162,10 @@ function hasRenameSyncNearby(block, targetNode) {
   }
   const writeIndex = body.indexOf(containingStmt);
 
-  // Check statements after the write for renameSync from a .tmp file (atomic rename step)
+  // Check statements after the write for renameSync from a .tmp file to the same target (atomic rename step)
   const startIndex = writeIndex === -1 ? 0 : writeIndex + 1;
   for (let i = startIndex; i < body.length; i++) {
-    if (containsRenameSyncFromTmp(body[i])) return true;
+    if (containsRenameSyncFromTmpToTarget(body[i], writeTarget)) return true;
   }
   return false;
 }

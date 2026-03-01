@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Generate Grand Plan V2 — Technical Debt Elimination Plan
  *

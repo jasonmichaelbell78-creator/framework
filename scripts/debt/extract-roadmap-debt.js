@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Extract technical debt items from ROADMAP.md checkboxes into TDMS-format JSONL.
  *

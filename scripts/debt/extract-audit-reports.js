@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Extract actionable findings from Dec 2025 audit reports into TDMS-format JSONL.
  *

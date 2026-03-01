@@ -16,13 +16,10 @@
  *   node scripts/reviews/security-check.js --blocking     # Exit non-zero on violations
  */
 
-import { existsSync, readFileSync, readdirSync, _statSync, lstatSync, realpathSync } from 'node:fs';
-import { execSync } from 'node:child_process';
-import { join, dirname, extname, relative, resolve, _isAbsolute, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+const { existsSync, readFileSync, readdirSync, lstatSync, realpathSync } = require('node:fs');
+const { execSync } = require('node:child_process');
+const { join, extname, relative, resolve, sep } = require('node:path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..', '..');
 
 // Security patterns to check

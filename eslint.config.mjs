@@ -42,21 +42,20 @@ export default [
       complexity: ['warn', 15],
     },
   },
-  // Node.js scripts configuration (ES modules that define their own __filename/__dirname)
+  // Node.js scripts configuration (CJS with require/__dirname/__filename)
   {
     files: ['scripts/**/*.js'],
     languageOptions: {
-      sourceType: 'module',
+      sourceType: 'commonjs',
       globals: {
-        // Node.js globals except __filename/__dirname (scripts define these from import.meta.url)
-        ...Object.fromEntries(
-          Object.entries(globals.node).filter(([k]) => !['__filename', '__dirname'].includes(k)),
-        ),
+        ...globals.node,
       },
     },
     rules: {
-      // Allow require() for dynamic imports (e.g., path.sep detection)
+      // Allow require() in CJS scripts
       '@typescript-eslint/no-require-imports': 'off',
+      // Allow shadowing Node.js globals like crypto (common CJS pattern: const crypto = require('node:crypto'))
+      'no-redeclare': 'off',
     },
   },
   // CC error-level for husky hooks (replaces standalone CC check in pre-commit)

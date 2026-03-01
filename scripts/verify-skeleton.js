@@ -16,7 +16,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-/* global __dirname */
 const ROOT = path.join(__dirname, '..');
 let errors = 0;
 let warnings = 0;

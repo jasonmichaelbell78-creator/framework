@@ -609,11 +609,15 @@ function agentTriggerEnforcer() {
     // eslint-disable-next-line framework/no-non-atomic-write -- non-critical ephemeral state file
     fs.writeFileSync(tmpPath, JSON.stringify(state, null, 2));
     try {
-      fs.rmSync(statePath, { force: true });
+      fs.renameSync(tmpPath, statePath);
     } catch {
-      /* best-effort */
+      try {
+        fs.rmSync(statePath, { force: true });
+        fs.renameSync(tmpPath, statePath);
+      } catch {
+        /* best-effort cleanup */
+      }
     }
-    fs.renameSync(tmpPath, statePath);
   } catch {
     try {
       fs.rmSync(tmpPath, { force: true });

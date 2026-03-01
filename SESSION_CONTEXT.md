@@ -1,5 +1,19 @@
 # Session Context
 
+Last Updated: 2026-03-01
+
+## Overview
+
+This document tracks the current development session state, active work items,
+recent decisions, and known issues for the framework project. It is
+auto-populated by session hooks and manually updated as work progresses.
+
+## AI Instructions
+
+- Read this file at the start of each session to understand current context
+- Update the "Active Work" and "Recent Decisions" sections as work progresses
+- Do not modify the "Session ID" or "Started" fields; they are auto-populated
+
 ## Current Session
 
 - **Session ID**: (auto-populated by session-start hook)
@@ -32,3 +46,8 @@
 - **Pre-push**: Circular deps, type check, security audit, code-reviewer gate
 - **Skills**: 50+ in .claude/skills/ (invoke with /skill-name)
 - **Agents**: 12 in .claude/agents/
+
+## Version History
+
+- 2026-03-01: Added Overview, AI Instructions, and Version History sections
+- 2026-03-01: Initial session context created for framework skeleton setup

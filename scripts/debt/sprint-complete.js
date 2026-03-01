@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * sprint-complete.js - Archive a completed sprint
  *

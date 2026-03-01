@@ -18,7 +18,6 @@
  * Usage: node scripts/trace-dependencies.js [--source <path>] [--pretty]
  */
 
-/* global __dirname */
 'use strict';
 
 const fs = require('node:fs');

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Extract review and aggregation findings to TDMS raw format
  *

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * safe-fs.js - Safe filesystem operation wrappers
  *

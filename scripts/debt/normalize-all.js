@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Normalize all raw extractions to unified TDMS schema
  *

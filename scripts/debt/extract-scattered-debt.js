@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Extract TODO/FIXME/HACK/XXX/WORKAROUND comments from source code into TDMS-format JSONL.
  *

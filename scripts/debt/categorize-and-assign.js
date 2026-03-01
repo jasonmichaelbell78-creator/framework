@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname */
 /**
  * Categorize & Assign — Technical Debt Resolution Plan
  *

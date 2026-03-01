@@ -15,18 +15,11 @@
  * Categories, tiers, and exclusions are configurable via scripts/config/doc-generator-config.json
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync, lstatSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { join, relative, dirname, basename, extname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
+const { readFileSync, writeFileSync, readdirSync, statSync, lstatSync } = require('node:fs');
+const { execFileSync } = require('node:child_process');
+const { join, relative, dirname, basename, extname } = require('node:path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
-
-// CJS interop for loading JSON configs from ESM
-const require = createRequire(import.meta.url);
 
 // Default config - override with scripts/config/doc-generator-config.json
 let CONFIG = {

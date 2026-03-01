@@ -22,7 +22,7 @@
  * Exit codes: 0 = no critical violations, 1 = critical violations found, 2 = error
  */
 
-import {
+const {
   readFileSync,
   existsSync,
   readdirSync,
@@ -31,18 +31,13 @@ import {
   mkdirSync,
   renameSync,
   unlinkSync,
-} from 'node:fs';
-import { join, dirname, extname, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
-import { createRequire } from 'node:module';
+} = require('node:fs');
+const { join, dirname, extname, relative } = require('node:path');
+const { execSync } = require('node:child_process');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..', '..');
 
 // Load verified pattern exclusions from JSON config (single source of truth)
-const require = createRequire(import.meta.url);
 let verifiedPatterns = {};
 try {
   const { loadConfig } = require('../config/load-config.js');

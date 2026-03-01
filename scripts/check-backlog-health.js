@@ -17,12 +17,8 @@
  *   BACKLOG_FILE=<path>        - Path to debt JSONL file (default: docs/technical-debt/MASTER_DEBT.jsonl)
  */
 
-import { existsSync, readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const { existsSync, readFileSync } = require('node:fs');
+const { join } = require('node:path');
 
 // Configuration (can be overridden via env vars)
 const CONFIG = {

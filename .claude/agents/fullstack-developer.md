@@ -1093,6 +1093,7 @@ export class ErrorBoundary extends Component<Props, State> {
 // Testing example with Jest and React Testing Library
 // frontend/src/components/__tests__/PostCard.test.tsx
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';

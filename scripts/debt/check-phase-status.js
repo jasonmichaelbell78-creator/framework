@@ -8,9 +8,9 @@
  * Usage: node scripts/debt/check-phase-status.js
  */
 
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { sanitizeError } from '../lib/sanitize-error.js';
+const { existsSync, readdirSync, readFileSync } = require('node:fs');
+const { join } = require('node:path');
+const { sanitizeError } = require('../lib/sanitize-error.js');
 
 const DEBT_DIR = process.env.TDMS_DEBT_DIR || 'docs/technical-debt';
 
