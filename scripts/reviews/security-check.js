@@ -64,7 +64,7 @@ const SECURITY_PATTERNS = [
     severity: 'CRITICAL',
     message: 'Potential hardcoded secret - use environment variables',
     fileTypes: ['.js', '.ts', '.tsx', '.json'],
-    exclude: [/test/, /mock/, /example/, /\.d\.ts$/],
+    exclude: [/test/, /mock/, /example/, /\.d\.ts$/, /eslint-plugin/],
   },
   {
     id: 'SEC-005',

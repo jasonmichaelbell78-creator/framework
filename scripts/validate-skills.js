@@ -26,7 +26,7 @@ const path = require('node:path');
 
 // Configuration for skill validation
 const SKILLS_CONFIG = {
-  skillsDir: '.claude/commands',
+  skillsDir: '.claude/skills',
   requiredFrontmatterFields: ['name', 'description'],
   minDescriptionLength: 10,
 };

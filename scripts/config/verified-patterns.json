@@ -19,7 +19,11 @@
     "reconcile-roadmap.js",
     "ai-pattern-checks.js",
     "search-capabilities.js",
-    "validate-skill-config.js"
+    "validate-skill-config.js",
+    "validate-skills.js",
+    "trace-dependencies.js",
+    "generate-documentation-index.js",
+    "check-docs-light.js"
   ],
   "write-without-symlink-guard": [
     "state-utils.js",

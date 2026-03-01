@@ -98,7 +98,8 @@ if (fs.existsSync(configDir)) {
 // --- 3. Sonash reference scan ---
 console.log('\n🔍 Sanitization Check:');
 const scanExts = ['.js', '.ts', '.tsx', '.jsx', '.md', '.yml', '.yaml', '.mjs'];
-const scanExclude = ['trace-dependencies.js', 'node_modules', '.git', 'verify-skeleton.js'];
+const scanExcludeFiles = ['trace-dependencies.js', 'verify-skeleton.js'];
+const scanExcludeDirs = ['node_modules', '.git'];
 
 function scanDir(dir, relDir = '') {
   let found = [];
@@ -106,7 +107,8 @@ function scanDir(dir, relDir = '') {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     for (const entry of entries) {
       const relPath = path.join(relDir, entry.name);
-      if (scanExclude.some((ex) => relPath.includes(ex))) continue;
+      if (entry.isDirectory() && scanExcludeDirs.includes(entry.name)) continue;
+      if (!entry.isDirectory() && scanExcludeFiles.some((ex) => entry.name === ex)) continue;
       if (entry.isDirectory()) {
         found = found.concat(scanDir(path.join(dir, entry.name), relPath));
       } else if (scanExts.some((ext) => entry.name.endsWith(ext))) {
@@ -146,11 +148,12 @@ if (fs.existsSync(skillsDir)) {
 
   let validSkills = 0;
   for (const skill of skills) {
-    const skillMd = path.join(skillsDir, skill.name, 'SKILL.md');
-    if (fs.existsSync(skillMd)) {
+    const skillMdUpper = path.join(skillsDir, skill.name, 'SKILL.md');
+    const skillMdLower = path.join(skillsDir, skill.name, 'skill.md');
+    if (fs.existsSync(skillMdUpper) || fs.existsSync(skillMdLower)) {
       validSkills++;
     } else {
-      check(`${skill.name}/SKILL.md exists`, false, true);
+      check(`${skill.name}/SKILL.md or skill.md exists`, false, true);
     }
   }
   check(`At least 40 valid skills (found ${validSkills})`, validSkills >= 40);
