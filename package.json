@@ -22,7 +22,7 @@
     "tdms:views": "node scripts/debt/generate-views.js",
     "tdms:validate": "node scripts/debt/validate-schema.js",
     "skills:validate": "node scripts/validate-skills.js",
-    "hooks:test": "if test -d tests/hooks; then node --test tests/hooks/; else echo 'No hook tests yet (tests/hooks/ not created)'; fi",
+    "hooks:test": "node -e \"if(!require('fs').existsSync('tests/hooks')){console.log('No hook tests yet (tests/hooks/ not created)');process.exit(0)}require('child_process').execSync('node --test tests/hooks/',{stdio:'inherit'})\"",
     "config:validate": "node -e \"require('fs').readdirSync('scripts/config').filter(f=>f.endsWith('.json')).forEach(f=>{JSON.parse(require('fs').readFileSync('scripts/config/'+f,'utf8'));console.log('OK:',f)})\"",
     "prepare": "husky"
   },
