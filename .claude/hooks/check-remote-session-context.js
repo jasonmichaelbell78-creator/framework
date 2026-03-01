@@ -14,6 +14,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { isSafeToWrite } = require('./lib/symlink-guard');
 const { sanitizeInput } = require('./lib/sanitize-input');
+const { projectDir } = require('./lib/git-utils');
 
 // Fetch TTL cache (path resolved after projectDir is defined below)
 let FETCH_CACHE_FILE;
@@ -62,19 +63,7 @@ const CONTEXT_FILE = 'SESSION_CONTEXT.md';
 const BRANCH_PREFIX = 'claude/';
 const MAX_AGE_DAYS = 7;
 
-// Get and validate project directory
-const safeBaseDir = path.resolve(process.cwd());
-const projectDirInput = process.env.CLAUDE_PROJECT_DIR || safeBaseDir;
-const projectDir = path.resolve(safeBaseDir, projectDirInput);
-
-// Security: Ensure projectDir is within baseDir (robust relative-path check)
-const rel = path.relative(safeBaseDir, projectDir);
-// Use regex for cross-platform ".." detection (handles Unix / and Windows \)
-const isOutsideBase = /^\.\.(?:[\\/]|$)/.test(rel) || path.isAbsolute(rel);
-if (isOutsideBase) {
-  console.log('ok');
-  process.exit(0);
-}
+// projectDir from shared git-utils (supports monorepo ancestors)
 
 // Resolve cache path now that projectDir is defined
 FETCH_CACHE_FILE = path.join(projectDir, '.claude', 'hooks', '.fetch-cache.json');

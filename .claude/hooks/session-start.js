@@ -20,22 +20,11 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { isSafeToWrite } = require('./lib/symlink-guard');
 const { sanitizeInput } = require('./lib/sanitize-input');
+const { projectDir } = require('./lib/git-utils');
 
 // Detect environment (remote/local)
 const isRemote = process.env.CLAUDE_CODE_REMOTE === 'true';
 const envType = isRemote ? 'remote' : 'local';
-
-// Validate project directory before chdir
-const baseDir = path.resolve(process.cwd());
-const projectDirInput = process.env.CLAUDE_PROJECT_DIR || baseDir;
-const projectDir = path.resolve(baseDir, projectDirInput);
-
-// Security: Ensure projectDir is within baseDir using path.relative() (prevent path traversal)
-// Note: rel === '' means projectDir equals baseDir, which is valid for session startup
-const rel = path.relative(baseDir, projectDir);
-if (rel.startsWith('..' + path.sep) || rel === '..' || path.isAbsolute(rel)) {
-  process.exit(0);
-}
 
 process.chdir(projectDir);
 

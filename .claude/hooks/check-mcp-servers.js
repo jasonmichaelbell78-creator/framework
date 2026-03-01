@@ -16,19 +16,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-
-// Get and validate project directory
-const safeBaseDir = path.resolve(process.cwd());
-const projectDirInput = process.env.CLAUDE_PROJECT_DIR || safeBaseDir;
-const projectDir = path.resolve(safeBaseDir, projectDirInput);
-
-// Security: Ensure projectDir is within baseDir using path.relative() (prevent path traversal)
-// Note: rel === '' means projectDir equals baseDir, which is valid for directory containment
-const rel = path.relative(safeBaseDir, projectDir);
-if (rel.startsWith('..' + path.sep) || rel === '..' || path.isAbsolute(rel)) {
-  console.log('No MCP servers configured');
-  process.exit(0);
-}
+const { projectDir } = require('./lib/git-utils.js');
 
 const mcpConfigPath = path.join(projectDir, '.mcp.json');
 

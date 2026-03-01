@@ -42,20 +42,8 @@ try {
 // Configuration
 const STATE_FILE = '.claude/hooks/.session-agents.json';
 
-// Get and validate project directory
-const safeBaseDir = path.resolve(process.cwd());
-const projectDirInput = process.env.CLAUDE_PROJECT_DIR || safeBaseDir;
-const projectDir = path.resolve(safeBaseDir, projectDirInput);
-
-// Security: Ensure projectDir is within baseDir (robust relative-path check)
-const rel = path.relative(safeBaseDir, projectDir);
-// Use regex for cross-platform ".." detection (handles Unix / and Windows \)
-const isOutsideBase = /^\.\.(?:[\\/]|$)/.test(rel) || path.isAbsolute(rel);
-
-if (isOutsideBase) {
-  console.log('ok');
-  process.exit(0);
-}
+// Get and validate project directory (shared resolver supports monorepo ancestors)
+const { projectDir } = require('./lib/git-utils');
 
 // Parse arguments - expecting JSON with Task tool parameters
 const arg = process.argv[2] || '';
