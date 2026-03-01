@@ -22,19 +22,7 @@ try {
 const ROOT_DIR = path.join(__dirname, '..', '..');
 const WARNINGS_FILE = path.join(ROOT_DIR, '.claude', 'hook-warnings.json');
 
-/**
- * Check if a file path is safe to write (not a symlink)
- */
-function isSafeToWrite(filePath) {
-  try {
-    if (fs.existsSync(filePath) && fs.lstatSync(filePath).isSymbolicLink()) {
-      return false;
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
+const { isSafeToWrite } = require('../../.claude/hooks/lib/symlink-guard.js');
 
 function parseArgs() {
   const args = {};

@@ -33,7 +33,8 @@ jobs:
 
       - name: Get changed markdown files
         id: changed-files
-        uses: tj-actions/changed-files@v46
+        # Pinned to SHA for supply chain security (see CVE-2025-30066)
+        uses: tj-actions/changed-files@26a38635fc1173cc5820336ce97be6188d0de9f5 # v46.0.2
         with:
           files: |
             **/*.md

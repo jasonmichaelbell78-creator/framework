@@ -24,20 +24,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-
-/**
- * Check if a file path is safe to write (not a symlink)
- */
-function isSafeToWrite(filePath) {
-  try {
-    if (fs.existsSync(filePath) && fs.lstatSync(filePath).isSymbolicLink()) {
-      return false;
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
+const { isSafeToWrite } = require('../../.claude/hooks/lib/symlink-guard.js');
 
 /**
  * Sanitize user input for safe logging
