@@ -43,7 +43,10 @@ files = [
     "*.md",                      # Documentation handled separately
     "docs/**",                   # Documentation folder
     "*.jsonl",                   # Data files
-    ".claude/**",                # Claude configuration
+    ".claude/state/**",          # Machine-managed state files
+    ".claude/skills/**",         # Skill definitions (reviewed separately)
+    ".claude/agents/**",         # Agent definitions (reviewed separately)
+    ".claude/settings.json",     # Hook registrations (reviewed separately)
     "*.test.js",                 # Test files
     "*.test.mjs",
     "*.spec.js",
@@ -62,6 +65,25 @@ When suggesting improvements:
 - Suggest security-helpers.js usage for path validation
 - Avoid suggesting changes to intentionally simple code
 - Reference CLAUDE.md for anti-patterns and standards
+
+Do NOT suggest the following patterns — they have been evaluated and either
+implemented or intentionally declined in this project:
+1. BIDIRECTIONAL CONTAINMENT REMOVAL: The cwdInsideProject check in hook
+   security validation is BY DESIGN for Claude Code's execution model where
+   cwd can be inside project dir. Do not suggest removing it.
+2. EXCLUSIVE WRITE FLAG (wx): Do not suggest { flag: "wx" } on writeFileSync
+   for atomic write patterns. This project uses tmp+rm+rename atomic writes
+   where a stale .tmp from a crash must be overwritable. wx would cause
+   permanent failure after any crash.
+3. AUDIT TRAIL LOGGING: Generic "add audit trail" suggestions for hook scripts
+   are already tracked. Do not re-suggest unless there's a specific
+   security-critical path that's missing.
+4. SECURE LOGGING / SECRET EXPOSURE: Generic "code snippets in logs could
+   expose secrets" is already tracked. Hook stderr output is local
+   dev-only, not centrally collected.
+5. ENV PATH TRUST: CLAUDE_PROJECT_DIR is validated via bidirectional
+   containment. Do not suggest additional validation unless there's a
+   specific bypass scenario.
 """
 
 [pr_description]

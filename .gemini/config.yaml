@@ -10,8 +10,7 @@ ignore_patterns:
   - 'docs/technical-debt/**/*.jsonl'
   - 'docs/technical-debt/raw/**'
   - 'docs/technical-debt/views/**'
-  # Generated output
-  - 'scripts/config/**'
+  # Generated output (not scripts/config — those are source-of-truth configs)
   # State files — machine-managed
   - '.claude/state/**'
   - '.claude/override-log.jsonl'

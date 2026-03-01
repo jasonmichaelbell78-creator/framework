@@ -24,7 +24,7 @@ tooling, quality gates, and development practices.
 
 All file writes MUST use the tmp+rename atomic write pattern. Never write
 directly to target files. Use `scripts/lib/safe-fs.js` for advisory locking
-and `scripts/lib/symlink-guard.js` for path validation.
+and `.claude/hooks/lib/symlink-guard.js` for path validation.
 
 ### TDMS (Technical Debt Management System)
 
@@ -115,7 +115,7 @@ and `scripts/lib/symlink-guard.js` for path validation.
 
 - Atomic writes: tmp+rename pattern (never direct writes)
 - Advisory locking: `safe-fs.js` withLock() for concurrent access
-- Symlink guard: validate paths before writing
+- Symlink guard: `.claude/hooks/lib/symlink-guard.js` for path validation
 - Secret redaction: sanitize-input.js for logged/persisted data
 
 ### Error Handling
