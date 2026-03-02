@@ -9,14 +9,17 @@ GSD execution state for the Framework Migration v1.0 milestone. Tracks current p
 See: .planning/PROJECT.md (updated 2026-03-01)
 
 **Core value:** Every project built with this framework gets battle-tested automation, quality gates, and AI-assisted workflows out of the box.
-**Current focus:** Phase 1 — Foundation (CANON & Config)
+**Current focus:** Phase 1 -- Foundation (CANON & Config)
 
 ## Current Status
 
 - **Milestone:** Framework Migration v1.0
-- **Phase:** 1 (not started)
-- **Plans created:** 0/10
-- **Requirements completed:** 0/44
+- **Phase:** 1 of 10 (Foundation)
+- **Plan:** 1 of 8 complete in phase 1
+- **Status:** In progress
+- **Last activity:** 2026-03-02 - Completed 01-01-PLAN.md (CANON & Config Schema Setup)
+
+Progress: [█░░░░░░░] 1/8 phase plans (12%)
 
 ## Planning Artifacts
 
@@ -29,6 +32,15 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 | GSD requirements         | `.planning/REQUIREMENTS.md`  |
 | GSD roadmap              | `.planning/ROADMAP.md`       |
 
+## Decisions
+
+| Decision                                       | Phase | Plan | Rationale                                                     |
+| ---------------------------------------------- | ----- | ---- | ------------------------------------------------------------- |
+| Use Zod 4.x (not 3.x)                          | 01    | 01   | Already in dependency tree via knip; avoids version conflicts |
+| validateConfig not wired to runtime yet        | 01    | 01   | Deferred to Phase 3 (Core Systems) or Phase 5 (Quality Gates) |
+| Explicit resolved defaults in Zod 4 .default() | 01    | 01   | Zod 4 type system requires fully resolved default values      |
+| CANON/\*_/_.ts added to tsconfig include       | 01    | 01   | Required for tsc type checking of schema files                |
+
 ## Pending Todos
 
 (None)
@@ -39,13 +51,21 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 - Deep-plan captured 68 decisions across 56 questions in 4 batches
 - 42 gaps identified (5 S0, 12 S1, 15 S2, 10 S3)
 - Effort estimate: XL (60-100 hours across 10 phases)
+- 2026-03-02: Completed 01-01 (CANON & Config Schema Setup) in 4 min
+
+## Session Continuity
+
+- **Last session:** 2026-03-02T23:22:54Z
+- **Stopped at:** Completed 01-01-PLAN.md
+- **Resume file:** .planning/phases/01-foundation/01-02-PLAN.md
 
 ## Version History
 
 | Version | Date       | Description                               |
 | ------- | ---------- | ----------------------------------------- |
 | 1.0     | 2026-03-01 | Initial state from GSD milestone creation |
+| 1.1     | 2026-03-02 | Completed plan 01-01 (CANON & Config)     |
 
 ---
 
-_Last updated: 2026-03-01_
+_Last updated: 2026-03-02_
