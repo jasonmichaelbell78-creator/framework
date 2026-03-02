@@ -310,7 +310,7 @@ Full markdown report with all findings, baselines, and recommendations.
 
 ## Standard Audit Procedures
 
-> Read `.claude/skills/_shared/AUDIT_TEMPLATE.md` for: Evidence Requirements,
+> Read `CANON/templates/AUDIT_TEMPLATE.md` for: Evidence Requirements,
 > Dual-Pass Verification, Cross-Reference Validation, JSONL Output Format,
 > Context Recovery, Post-Audit Validation, MASTER_DEBT Cross-Reference,
 > Interactive Review, TDMS Intake & Commit, Documentation References, Agent

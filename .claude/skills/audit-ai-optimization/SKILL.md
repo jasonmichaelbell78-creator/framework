@@ -45,7 +45,7 @@ skill overlap, hook latency, context management, and automation gaps. It covers
 
 ## Persistence Rules
 
-See Agent Return Protocol in `.claude/skills/_shared/AUDIT_TEMPLATE.md`.
+See Agent Return Protocol in `CANON/templates/AUDIT_TEMPLATE.md`.
 Additionally: verify all output files exist after each stage before proceeding
 (`wc -l ${AUDIT_DIR}/*.jsonl`). Re-run any agent that fails to write its file.
 
@@ -456,7 +456,7 @@ done
 
 ## Standard Audit Procedures
 
-> Read `.claude/skills/_shared/AUDIT_TEMPLATE.md` for: Evidence Requirements,
+> Read `CANON/templates/AUDIT_TEMPLATE.md` for: Evidence Requirements,
 > Dual-Pass Verification, Cross-Reference Validation, JSONL Output Format,
 > Context Recovery, Post-Audit Validation, MASTER_DEBT Cross-Reference,
 > Interactive Review, TDMS Intake & Commit, Documentation References, Agent

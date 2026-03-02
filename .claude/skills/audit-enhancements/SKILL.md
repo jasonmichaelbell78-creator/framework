@@ -409,7 +409,7 @@ Sequential process (1-2 agents):
 
 ## Phase 4: Interactive Review & TDMS Intake
 
-> Read `.claude/skills/_shared/AUDIT_TEMPLATE.md` for: MASTER_DEBT
+> Read `CANON/templates/AUDIT_TEMPLATE.md` for: MASTER_DEBT
 > Cross-Reference, Interactive Review, and TDMS Intake procedures.
 
 **Enhancement-specific additions to interactive review:**

@@ -93,7 +93,7 @@ context.**
 
 ## Standard Audit Procedures
 
-> Read `.claude/skills/_shared/AUDIT_TEMPLATE.md` for standard audit procedures.
+> Read `CANON/templates/AUDIT_TEMPLATE.md` for standard audit procedures.
 
 ## Agent Prompts
 

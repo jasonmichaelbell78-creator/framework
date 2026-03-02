@@ -8,7 +8,7 @@
 
 Phase 1 establishes the standards foundation that all subsequent phases build upon. The research focused on understanding what already exists in the codebase, what patterns are established that standards should formalize, what dependencies exist between deliverables, and what the realistic plan breakdown looks like.
 
-The codebase already has significant implicit standards captured in CLAUDE.md, existing shared files (`_shared/SKILL_STANDARDS.md`, `_shared/AUDIT_TEMPLATE.md`), ESLint rules, and patterns embedded in hooks and scripts. The CANON system's job is to formalize and centralize these scattered conventions into a single authoritative directory. The `framework.config.json` is entirely new -- nothing like it exists yet. The dependency registry builds on `scripts/trace-dependencies.js` which already handles require/import scanning.
+The codebase already has significant implicit standards captured in CLAUDE.md, existing shared files (now migrated to `CANON/standards/SKILL_STANDARDS.md`, `CANON/templates/AUDIT_TEMPLATE.md`), ESLint rules, and patterns embedded in hooks and scripts. The CANON system's job is to formalize and centralize these scattered conventions into a single authoritative directory. The `framework.config.json` is entirely new -- nothing like it exists yet. The dependency registry builds on `scripts/trace-dependencies.js` which already handles require/import scanning.
 
 **Primary recommendation:** Start with the config schema and CANON directory structure (parallel), then write standards (mostly formalizing existing patterns), then templates and schemas, then dependency registry (depends on CANON being in place to reference), and finally the outside resource survey (independent but timeboxed).
 
@@ -50,7 +50,7 @@ CANON/
 │   └── framework-config.schema.ts  # Config validation schema
 ├── standards/
 │   ├── SKILL_STANDARDS.md          # Migrated from .claude/skills/_shared/
-│   ├── AUDIT_STANDARD.md           # Migrated from .claude/skills/_shared/AUDIT_TEMPLATE.md
+│   ├── AUDIT_STANDARD.md           # New standard defining audit methodology
 │   ├── AGENT_STANDARD.md           # New
 │   ├── HOOK_STANDARD.md            # New
 │   ├── DOC_STANDARD.md             # New
@@ -202,19 +202,19 @@ Every CANON standard MUST follow this structure:
 
 ### What Already Exists (migrate or formalize)
 
-| Item                     | Location                                    | Target CANON Asset                                    | Action                                                             |
-| ------------------------ | ------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
-| SKILL_STANDARDS.md       | `.claude/skills/_shared/SKILL_STANDARDS.md` | `CANON/standards/SKILL_STANDARDS.md`                  | Migrate (280 lines, well-structured)                               |
-| AUDIT_TEMPLATE.md        | `.claude/skills/_shared/AUDIT_TEMPLATE.md`  | `CANON/templates/AUDIT_TEMPLATE.md`                   | Migrate (210 lines, well-structured)                               |
-| CLAUDE.md conventions    | `CLAUDE.md`                                 | Multiple standards                                    | Extract patterns into formal standards                             |
-| audit-schema.json        | `scripts/config/audit-schema.json`          | Informs `JSONL_STANDARD.md` + `base-record.schema.ts` | Extract categories, severities, statuses, efforts, required fields |
-| doc-header-config.json   | `scripts/config/doc-header-config.json`     | Informs `DOC_STANDARD.md`                             | Extract required/recommended headers                               |
-| skill-config.json        | `scripts/config/skill-config.json`          | Informs `SKILL_STANDARDS.md`                          | Extract required sections, deprecated patterns                     |
-| trace-dependencies.js    | `scripts/trace-dependencies.js`             | Foundation for dependency registry auto-discovery     | Extend to support JSONL output and 7 relationship types            |
-| validate-skills.js       | `scripts/validate-skills.js`                | Enforcement for SKILL_STANDARDS                       | Reference as enforcement mechanism                                 |
-| ESLint plugin (23 rules) | `eslint-plugin-framework/`                  | Referenced by multiple standards                      | Document which standards each rule enforces                        |
-| Pre-commit hook          | `.husky/pre-commit`                         | Informs HOOK_STANDARD                                 | Document wave structure, skip mechanism                            |
-| settings.json            | `.claude/settings.json`                     | Informs HOOK_STANDARD, INTERACTION_STANDARD           | Document hook registration patterns                                |
+| Item                     | Location                                | Target CANON Asset                                    | Action                                                             |
+| ------------------------ | --------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
+| SKILL_STANDARDS.md       | `CANON/standards/SKILL_STANDARDS.md`    | `CANON/standards/SKILL_STANDARDS.md`                  | Migrated (280 lines, well-structured)                              |
+| AUDIT_TEMPLATE.md        | `CANON/templates/AUDIT_TEMPLATE.md`     | `CANON/templates/AUDIT_TEMPLATE.md`                   | Migrated (210 lines, well-structured)                              |
+| CLAUDE.md conventions    | `CLAUDE.md`                             | Multiple standards                                    | Extract patterns into formal standards                             |
+| audit-schema.json        | `scripts/config/audit-schema.json`      | Informs `JSONL_STANDARD.md` + `base-record.schema.ts` | Extract categories, severities, statuses, efforts, required fields |
+| doc-header-config.json   | `scripts/config/doc-header-config.json` | Informs `DOC_STANDARD.md`                             | Extract required/recommended headers                               |
+| skill-config.json        | `scripts/config/skill-config.json`      | Informs `SKILL_STANDARDS.md`                          | Extract required sections, deprecated patterns                     |
+| trace-dependencies.js    | `scripts/trace-dependencies.js`         | Foundation for dependency registry auto-discovery     | Extend to support JSONL output and 7 relationship types            |
+| validate-skills.js       | `scripts/validate-skills.js`            | Enforcement for SKILL_STANDARDS                       | Reference as enforcement mechanism                                 |
+| ESLint plugin (23 rules) | `eslint-plugin-framework/`              | Referenced by multiple standards                      | Document which standards each rule enforces                        |
+| Pre-commit hook          | `.husky/pre-commit`                     | Informs HOOK_STANDARD                                 | Document wave structure, skip mechanism                            |
+| settings.json            | `.claude/settings.json`                 | Informs HOOK_STANDARD, INTERACTION_STANDARD           | Document hook registration patterns                                |
 
 ### What Must Be Created Fresh
 
@@ -400,7 +400,7 @@ These can proceed in parallel:
    - Recommendation: Use zod@4 since it is already in the dependency tree via knip. This avoids version conflicts.
 
 2. **How to handle the SKILL_STANDARDS.md migration?**
-   - What we know: 18+ audit skills reference `.claude/skills/_shared/AUDIT_TEMPLATE.md` and `.claude/skills/_shared/SKILL_STANDARDS.md`.
+   - What we know: 18+ audit skills referenced the old shared paths (now migrated to CANON).
    - What's unclear: Whether to leave redirect files, update all references immediately, or use symlinks.
    - Recommendation: Move files to CANON, update all references in the same commit, leave no redirect. Clean migration prevents dual-source confusion.
 

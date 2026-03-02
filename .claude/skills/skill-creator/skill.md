@@ -89,7 +89,7 @@ Skills use a three-level loading system to manage context efficiently:
 
 **Before creating skills**, review:
 
-- [SKILL_STANDARDS.md](../_shared/SKILL_STANDARDS.md) — Required sections, size
+- [SKILL_STANDARDS.md](../../../CANON/standards/SKILL_STANDARDS.md) — Required sections, size
   limits, attention management, instruction hierarchy, and quality checklist
 
 Follow these steps in order, skipping only when clearly inapplicable.
