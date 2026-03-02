@@ -15,11 +15,11 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 
 - **Milestone:** Framework Migration v1.0
 - **Phase:** 1 of 10 (Foundation)
-- **Plan:** 3 of 8 complete in phase 1
+- **Plan:** 4 of 8 complete in phase 1
 - **Status:** In progress
-- **Last activity:** 2026-03-02 - Completed 01-04-PLAN.md (Remaining Standards)
+- **Last activity:** 2026-03-02 - Completed 01-03-PLAN.md (New CANON Standards Wave 1)
 
-Progress: [███░░░░░] 3/8 phase plans (37%)
+Progress: [████░░░░] 4/8 phase plans (50%)
 
 ## Planning Artifacts
 
@@ -47,6 +47,9 @@ Progress: [███░░░░░] 3/8 phase plans (37%)
 | Exactly 7 dependency relationship types             | 01    | 04   | requires, invokes, references, triggers, generates, validates, extends |
 | Three confidence levels with review gates           | 01    | 04   | high (auto-accepted), medium/low (require interactive review)          |
 | Three checkpoint types for interactive workflows    | 01    | 04   | human-verify (90%), decision (9%), human-action (1%)                   |
+| Agent size limits: <300/300-499/500+                | 01    | 03   | All 12 existing agents under 100 lines; limits provide growth room     |
+| Hook exit codes: 0=allow, 1=error, 2=block          | 01    | 03   | Matches block-push-to-main.js exit 2 pattern and Node conventions      |
+| Doc status: ACTIVE/DRAFT/DEPRECATED/ARCHIVED        | 01    | 03   | Full lifecycle coverage without over-categorization                    |
 
 ## Pending Todos
 
@@ -60,22 +63,24 @@ Progress: [███░░░░░] 3/8 phase plans (37%)
 - Effort estimate: XL (60-100 hours across 10 phases)
 - 2026-03-02: Completed 01-01 (CANON & Config Schema Setup) in 4 min
 - 2026-03-02: Completed 01-02 (Standards Migration) in 11 min
+- 2026-03-02: Completed 01-03 (New CANON Standards Wave 1) in 9 min
 - 2026-03-02: Completed 01-04 (Remaining Standards) in 7 min
 
 ## Session Continuity
 
-- **Last session:** 2026-03-02T23:40:04Z
-- **Stopped at:** Completed 01-04-PLAN.md
+- **Last session:** 2026-03-02T23:41:18Z
+- **Stopped at:** Completed 01-03-PLAN.md
 - **Resume file:** .planning/phases/01-foundation/01-05-PLAN.md
 
 ## Version History
 
-| Version | Date       | Description                                |
-| ------- | ---------- | ------------------------------------------ |
-| 1.0     | 2026-03-01 | Initial state from GSD milestone creation  |
-| 1.1     | 2026-03-02 | Completed plan 01-01 (CANON & Config)      |
-| 1.2     | 2026-03-02 | Completed plan 01-02 (Standards Migration) |
-| 1.3     | 2026-03-02 | Completed plan 01-04 (Remaining Standards) |
+| Version | Date       | Description                                   |
+| ------- | ---------- | --------------------------------------------- |
+| 1.0     | 2026-03-01 | Initial state from GSD milestone creation     |
+| 1.1     | 2026-03-02 | Completed plan 01-01 (CANON & Config)         |
+| 1.2     | 2026-03-02 | Completed plan 01-02 (Standards Migration)    |
+| 1.3     | 2026-03-02 | Completed plan 01-04 (Remaining Standards)    |
+| 1.4     | 2026-03-02 | Completed plan 01-03 (New CANON Standards W1) |
 
 ---
 
