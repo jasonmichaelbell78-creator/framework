@@ -1042,3 +1042,11 @@ These are NOT part of this plan — they are separate milestones per D35:
 | 7     | D2, D20, D54                                               |
 | 8     | D24, D25, D30, D35, D42, D47                               |
 | 9     | D12, D28, D33, D34, D37, D52                               |
+
+---
+
+## Version History
+
+| Version | Date       | Description                                      |
+| ------- | ---------- | ------------------------------------------------ |
+| 1.0     | 2026-03-01 | Initial plan — 10 phases, 39 steps, 68 decisions |

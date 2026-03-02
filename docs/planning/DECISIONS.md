@@ -200,7 +200,15 @@ These patterns recur across multiple decisions and should be treated as architec
 
 ---
 
-## Pending Tasks (from Discovery)
+## Completed Tasks (from Discovery)
 
-1. Add one-at-a-time interactive questioning mode to deep-plan skill
-2. Canonize comprehensive diagnosis doc format into deep-plan skill
+1. ~~Add one-at-a-time interactive questioning mode to deep-plan skill~~ — Done (deep-plan SKILL.md v2.1, commit bae9dc6)
+2. ~~Canonize comprehensive diagnosis doc format into deep-plan skill~~ — Done (deep-plan REFERENCE.md, commit bae9dc6)
+
+---
+
+## Version History
+
+| Version | Date       | Description                                              |
+| ------- | ---------- | -------------------------------------------------------- |
+| 1.0     | 2026-03-01 | Initial record — 68 decisions across 4 discovery batches |

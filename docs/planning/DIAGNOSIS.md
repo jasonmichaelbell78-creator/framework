@@ -353,7 +353,7 @@ event-based triggers.
 
 ### 4.7 Scripts Infrastructure (Score: 45/100, Grade: D)
 
-**scripts/lib/ — 11/11 migrated (but need sanitization check)**
+**scripts/lib/ — 10/10 migrated (but need sanitization check)**
 
 | Module                | Clean? | Issue                               |
 | --------------------- | ------ | ----------------------------------- |
@@ -837,3 +837,12 @@ Files requiring the most sanitization work:
 /skill-creator → /skill-audit
 /using-superpowers → [any skill via Skill tool]
 ```
+
+---
+
+## Version History
+
+| Version | Date       | Description                                             |
+| ------- | ---------- | ------------------------------------------------------- |
+| 1.0     | 2026-03-01 | Initial diagnosis draft                                 |
+| 2.0     | 2026-03-01 | Comprehensive rewrite — 13 domains, 42 gaps, scorecards |
