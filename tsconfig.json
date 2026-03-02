@@ -13,6 +13,7 @@
     "noEmit": true
   },
   "include": [
+    "CANON/**/*.ts",
     "scripts/**/*.ts",
     "scripts/**/*.js",
     "eslint-plugin-framework/**/*.ts",
