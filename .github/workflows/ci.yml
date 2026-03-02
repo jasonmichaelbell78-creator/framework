@@ -63,13 +63,13 @@ jobs:
           CHANGED_FILES_JSON: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           echo "Checking pattern compliance on changed files..."
-          node -e "
+          node -e '
             const files = JSON.parse(process.env.CHANGED_FILES_JSON);
-            const { execFileSync } = require('child_process');
+            const { execFileSync } = require("child_process");
             try {
-              execFileSync('node', ['scripts/reviews/check-pattern-compliance.js', '--', ...files], { stdio: 'inherit' });
+              execFileSync("node", ["scripts/reviews/check-pattern-compliance.js", "--", ...files], { stdio: "inherit" });
             } catch (e) { process.exit(e.status || 1); }
-          "
+          '
 
       - name: Pattern compliance check (push to main)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
