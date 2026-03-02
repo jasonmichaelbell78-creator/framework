@@ -15,11 +15,11 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 
 - **Milestone:** Framework Migration v1.0
 - **Phase:** 1 of 10 (Foundation)
-- **Plan:** 2 of 8 complete in phase 1
+- **Plan:** 3 of 8 complete in phase 1
 - **Status:** In progress
-- **Last activity:** 2026-03-02 - Completed 01-02-PLAN.md (Standards Migration)
+- **Last activity:** 2026-03-02 - Completed 01-04-PLAN.md (Remaining Standards)
 
-Progress: [██░░░░░░] 2/8 phase plans (25%)
+Progress: [███░░░░░] 3/8 phase plans (37%)
 
 ## Planning Artifacts
 
@@ -34,15 +34,19 @@ Progress: [██░░░░░░] 2/8 phase plans (25%)
 
 ## Decisions
 
-| Decision                                       | Phase | Plan | Rationale                                                      |
-| ---------------------------------------------- | ----- | ---- | -------------------------------------------------------------- |
-| Use Zod 4.x (not 3.x)                          | 01    | 01   | Already in dependency tree via knip; avoids version conflicts  |
-| validateConfig not wired to runtime yet        | 01    | 01   | Deferred to Phase 3 (Core Systems) or Phase 5 (Quality Gates)  |
-| Explicit resolved defaults in Zod 4 .default() | 01    | 01   | Zod 4 type system requires fully resolved default values       |
-| CANON/\*_/_.ts added to tsconfig include       | 01    | 01   | Required for tsc type checking of schema files                 |
-| SKILL_STANDARDS version reset to 1.0 in CANON  | 01    | 02   | Fresh canonical version marking migration to CANON             |
-| AUDIT_STANDARD separate from AUDIT_TEMPLATE    | 01    | 02   | Standard defines methodology; template provides report format  |
-| Historical docs updated with migration status  | 01    | 02   | Verification requires zero \_shared/ refs across all .md files |
+| Decision                                            | Phase | Plan | Rationale                                                              |
+| --------------------------------------------------- | ----- | ---- | ---------------------------------------------------------------------- |
+| Use Zod 4.x (not 3.x)                               | 01    | 01   | Already in dependency tree via knip; avoids version conflicts          |
+| validateConfig not wired to runtime yet             | 01    | 01   | Deferred to Phase 3 (Core Systems) or Phase 5 (Quality Gates)          |
+| Explicit resolved defaults in Zod 4 .default()      | 01    | 01   | Zod 4 type system requires fully resolved default values               |
+| CANON/\*_/_.ts added to tsconfig include            | 01    | 01   | Required for tsc type checking of schema files                         |
+| SKILL_STANDARDS version reset to 1.0 in CANON       | 01    | 02   | Fresh canonical version marking migration to CANON                     |
+| AUDIT_STANDARD separate from AUDIT_TEMPLATE         | 01    | 02   | Standard defines methodology; template provides report format          |
+| Historical docs updated with migration status       | 01    | 02   | Verification requires zero \_shared/ refs across all .md files         |
+| JSONL is single source of truth; MD views generated | 01    | 04   | Dual-source prevention: one JSONL source, many views                   |
+| Exactly 7 dependency relationship types             | 01    | 04   | requires, invokes, references, triggers, generates, validates, extends |
+| Three confidence levels with review gates           | 01    | 04   | high (auto-accepted), medium/low (require interactive review)          |
+| Three checkpoint types for interactive workflows    | 01    | 04   | human-verify (90%), decision (9%), human-action (1%)                   |
 
 ## Pending Todos
 
@@ -56,12 +60,13 @@ Progress: [██░░░░░░] 2/8 phase plans (25%)
 - Effort estimate: XL (60-100 hours across 10 phases)
 - 2026-03-02: Completed 01-01 (CANON & Config Schema Setup) in 4 min
 - 2026-03-02: Completed 01-02 (Standards Migration) in 11 min
+- 2026-03-02: Completed 01-04 (Remaining Standards) in 7 min
 
 ## Session Continuity
 
-- **Last session:** 2026-03-02T23:30:10Z
-- **Stopped at:** Completed 01-02-PLAN.md
-- **Resume file:** .planning/phases/01-foundation/01-03-PLAN.md
+- **Last session:** 2026-03-02T23:40:04Z
+- **Stopped at:** Completed 01-04-PLAN.md
+- **Resume file:** .planning/phases/01-foundation/01-05-PLAN.md
 
 ## Version History
 
@@ -70,6 +75,7 @@ Progress: [██░░░░░░] 2/8 phase plans (25%)
 | 1.0     | 2026-03-01 | Initial state from GSD milestone creation  |
 | 1.1     | 2026-03-02 | Completed plan 01-01 (CANON & Config)      |
 | 1.2     | 2026-03-02 | Completed plan 01-02 (Standards Migration) |
+| 1.3     | 2026-03-02 | Completed plan 01-04 (Remaining Standards) |
 
 ---
 
