@@ -76,15 +76,19 @@ the task. Not every task needs every category — use judgment.
 
 ### DIAGNOSIS.md Template
 
+Use the **simple format** for tasks with 1-3 systems. Use the **comprehensive
+format** for tasks touching 4+ systems or requiring deep ecosystem analysis.
+
+#### Simple Format
+
 ```markdown
 # Diagnosis: [Task Name]
 
-**Date:** YYYY-MM-DD **Task:** [Brief description of what was requested]
+**Date:** YYYY-MM-DD **Task:** [Brief description]
 
 ## ROADMAP Alignment
 
-[Aligned / Misaligned / New Direction] [Explanation of how this task relates to
-current project direction]
+[Aligned / Misaligned / New Direction] [Explanation]
 
 ## Relevant Existing Systems
 
@@ -94,11 +98,110 @@ current project direction]
 
 ## Reframe Check
 
-[Is this task what it appears to be? Does codebase context suggest a different
-framing?]
+[Is this task what it appears to be?]
 
 **Recommendation:** [Proceed as stated / Reframe to X / Split into Y and Z]
 ```
+
+#### Comprehensive Format (Ecosystem-Scale)
+
+Use when the task involves multiple interconnected systems, migrations, or major
+architectural work. Investigate deeply using parallel agents before writing.
+
+```markdown
+# Diagnosis: [Task Name]
+
+**Date:** YYYY-MM-DD **Task:** [Brief description]
+
+## 1. Executive Summary
+
+**Readiness Grade: [Letter]** ([Score]/100)
+
+[2-3 paragraph overview of current state, problem domains, and scope]
+
+**Composite Scores by Domain:**
+
+| Domain | Score | Grade | Key Issue |
+| ------ | ----- | ----- | --------- |
+| [name] | [N]   | [X]   | [summary] |
+
+## 2. ROADMAP Alignment
+
+[Aligned / Misaligned / New Direction] [Specific gaps between ROADMAP and
+actual state]
+
+## 3. Ecosystem Inventory
+
+### Complete System Map (ASCII diagram)
+
+[Visual map of all layers, systems, and their relationships]
+
+### Data Flow: End-to-End Lifecycle (ASCII diagram)
+
+[Flow diagram showing how data moves through the system from trigger to output]
+
+## 4. System-by-System Scorecards
+
+### 4.N [System Name] (Score: N/100, Grade: X)
+
+| Component | Source | Target | Status   | Sanitization |
+| --------- | ------ | ------ | -------- | ------------ |
+| [name]    | YES/NO | YES/NO | [status] | [level]      |
+
+**Key Gaps:** [Bullet list of specific issues]
+
+[Repeat for each system/domain]
+
+## 5. [Domain-Specific Analysis]
+
+[Deep analysis of cross-cutting concerns — sanitization layers, cross-platform
+issues, parameterization needs, sync requirements, etc.]
+
+## 6. Gap Catalog
+
+### Severity Definitions
+
+- **S0 (Critical):** Blocks core functionality
+- **S1 (High):** Significant capability missing, workaround available
+- **S2 (Medium):** Nice-to-have capability missing
+- **S3 (Low):** Polish, optimization, or future-proofing
+
+### Full Gap Catalog ([N] gaps identified)
+
+#### S0 — Critical ([N] gaps)
+
+| ID     | Gap    | System |
+| ------ | ------ | ------ |
+| GAP-NN | [Desc] | [sys]  |
+
+[Repeat for S1, S2, S3]
+
+## 7. Recommendations
+
+### Phase N: [Title] (Effort: [S/M/L/XL] — [N-N hours])
+
+[Numbered list of concrete actions]
+
+**Total Estimated Effort: [N-N hours across N phases]**
+
+## 8. Appendices
+
+### A. [Comparison Tables, File Counts, etc.]
+
+### B. [Hotspot Maps, Dependency Graphs, etc.]
+
+### C. [Test Matrices, Cross-Reference Tables, etc.]
+```
+
+**Comprehensive format rules:**
+
+1. Use parallel investigation agents to gather data before writing
+2. Every domain gets a scorecard with numeric scores (0-100) and letter grades
+3. Gaps are cataloged with severity ratings and unique IDs (GAP-NN)
+4. Recommendations are phased with effort estimates
+5. Include ASCII diagrams for system maps and data flows
+6. Appendices hold detailed tables that support the narrative
+7. Present to user for review before proceeding to Discovery
 
 ### DECISIONS.md Template
 

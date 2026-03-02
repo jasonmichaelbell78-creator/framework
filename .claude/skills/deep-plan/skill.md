@@ -106,17 +106,21 @@ surfaced and resolved with the user.
    the best option, stating what was chosen and why.
 4. **Reference existing patterns** — cite actual codebase conventions, not
    generic options.
-5. **Batch related questions** — group 5-8 related questions per batch. No rigid
-   cap; use judgment based on question complexity.
-6. **Inter-batch synthesis** — after each batch of answers, synthesize what was
-   learned before asking the next batch. This prevents redundant questions.
+5. **One question at a time (interactive mode)** — present questions individually
+   for focused discussion. Each question gets its own response cycle: ask →
+   user answers → capture decision → next question. This prevents overwhelm
+   and allows answers to organically influence subsequent questions.
+6. **Inter-question synthesis** — after each answer, consider whether it
+   resolves or changes upcoming questions. State inferences explicitly before
+   moving on. Save decisions in logical batches (every 8-10 questions).
 7. **State inferences explicitly** — when an answer makes other questions
    obvious, state "Based on your answer to Q3, I'm inferring X for Q7" rather
    than silently skipping.
 8. **Save decisions after every batch** — persist to
    `.claude/state/deep-plan.state.json` with task name, current batch number,
    all decisions so far, and timestamp.
-9. **Show progress** — "Batch 2 of ~3 complete. 12 decisions captured so far."
+9. **Show progress** — after each state save: "20 decisions captured. Moving to
+   next topic." Keep user informed of overall progress.
 
 ### Discovery Anti-Patterns (MUST avoid)
 
@@ -287,3 +291,6 @@ Deep-plan sessions run long. MUST persist state incrementally:
 | 2.0     | 2026-03-01 | Rewrite from 64-decision audit: Phase 0, no caps,      |
 |         |            | standalone DECISIONS.md, audit checkpoints, handoff    |
 |         |            | routing, compaction resilience, guard rails, REFERENCE |
+| 2.1     | 2026-03-01 | Interactive one-at-a-time questioning mode (replaces   |
+|         |            | batch mode). Comprehensive DIAGNOSIS.md template with  |
+|         |            | scorecards, gap catalog, and phased recommendations.   |
