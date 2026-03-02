@@ -1,5 +1,9 @@
 # Requirements: Framework
 
+## Overview
+
+44 requirements across 10 categories for the Framework Migration v1.0 milestone. Derived from deep-plan artifacts and mapped to roadmap phases.
+
 **Defined:** 2026-03-01
 **Core Value:** Every project built with this framework gets battle-tested automation, quality gates, and AI-assisted workflows out of the box.
 
@@ -165,7 +169,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Mapped to phases: 44
 - Unmapped: 0
 
+## Version History
+
+| Version | Date       | Description                                      |
+| ------- | ---------- | ------------------------------------------------ |
+| 1.0     | 2026-03-01 | Initial requirements from GSD milestone creation |
+
 ---
 
 _Requirements defined: 2026-03-01_
-_Last updated: 2026-03-01 after deep-plan Phase 3_
+_Last updated: 2026-03-01_

@@ -1,6 +1,6 @@
 # Framework
 
-## What This Is
+## Overview
 
 A reusable development workflow framework providing standardized tooling, quality gates, AI agent orchestration, and development practices that can be shared across projects. Extracted from sonash-v0, designed to be project-agnostic and configurable.
 
@@ -55,7 +55,7 @@ Every project built with this framework gets battle-tested automation, quality g
 - **Cross-platform:** Must work on both Windows and Linux without modification
 - **No manual scripts:** All automation via skills, hooks, or agents (D6)
 - **CANON first:** Standards in place before building systems (D10, D11)
-- **Hard gates:** Phases 0, 1, 6, 9 must pass audit before proceeding (D34)
+- **Hard gates:** Phases 1, 2, 7, 10 must pass audit before proceeding (D34)
 - **Sanitization depth:** 5 layers (L1 explicit names → L5 cross-references) (D28)
 
 ## Key Decisions
@@ -70,6 +70,12 @@ Every project built with this framework gets battle-tested automation, quality g
 | GSD milestone structure (D35)        | Sync and creation layer as separate milestones            | — Pending |
 | Upstream sync planned here (D4)      | Needed before PR migration                                | — Pending |
 
+## Version History
+
+| Version | Date       | Description                                 |
+| ------- | ---------- | ------------------------------------------- |
+| 1.0     | 2026-03-01 | Initial project from GSD milestone creation |
+
 ---
 
-_Last updated: 2026-03-01 after deep-plan completion_
+_Last updated: 2026-03-01_

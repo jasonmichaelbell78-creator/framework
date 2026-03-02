@@ -1,5 +1,9 @@
 # Roadmap: Framework v1.0
 
+## Overview
+
+10-phase execution roadmap for the Framework Migration v1.0 milestone. Derived from deep-plan artifacts (68 decisions, 39 implementation steps) and mapped to 44 requirements.
+
 **Milestone:** Framework Migration v1.0
 **Phases:** 10
 **Requirements:** 44 (all mapped)
@@ -195,7 +199,13 @@ Phase 1 (Foundation) ──HARD──> Phase 2 (Sanitization) ──HARD──> 
 - Within Phase 6: Steps 5.1-5.3 are independent
 - Within Phase 9: Steps 8.1 and 8.2 are independent
 
+## Version History
+
+| Version | Date       | Description                                 |
+| ------- | ---------- | ------------------------------------------- |
+| 1.0     | 2026-03-01 | Initial roadmap from GSD milestone creation |
+
 ---
 
 _Roadmap created: 2026-03-01_
-_Last updated: 2026-03-01 after deep-plan completion_
+_Last updated: 2026-03-01_
