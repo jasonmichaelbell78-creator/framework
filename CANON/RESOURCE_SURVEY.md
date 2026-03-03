@@ -10,10 +10,10 @@
 
 | Decision  | Count  |
 | --------- | ------ |
-| Adopt     | 3      |
-| Defer     | 9      |
+| Adopt     | 5      |
+| Defer     | 7      |
 | Reject    | 8      |
-| **Total** | **20** |
+| **Total** | **21** |
 
 ### By Category
 
@@ -21,7 +21,7 @@
 | -------------- | ----- | ----- | ------ | ----- |
 | ESLint Plugins | 1     | 3     | 0      | 4     |
 | MCP Servers    | 0     | 1     | 3      | 4     |
-| GitHub Actions | 2     | 2     | 0      | 4     |
+| GitHub Actions | 4     | 1     | 0      | 5     |
 | NPM Packages   | 0     | 2     | 2      | 4     |
 | Other Tools    | 0     | 1     | 3      | 4     |
 
@@ -45,12 +45,13 @@
 
 ## GitHub Actions
 
-| Name                    | Decision  | Priority | Rationale                                                                                                    |
-| ----------------------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| actions/cache           | **adopt** | high     | Cache node_modules between CI runs. Standard practice, significant time savings with 9 workflows.            |
-| dependabot              | **adopt** | high     | Automated dependency update PRs. Essential for long-lived projects with 10+ dependencies.                    |
-| github/codeql-action    | defer     | medium   | Deep semantic security analysis. Deferred due to CI time overhead (5-15 min) and existing security coverage. |
-| reviewdog/action-eslint | defer     | low      | Inline PR comments are incremental UX. Useful when multiple contributors exist.                              |
+| Name                             | Decision  | Priority | Rationale                                                                                                    |
+| -------------------------------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| actions/cache                    | **adopt** | high     | Cache node_modules between CI runs. Standard practice, significant time savings with 9 workflows.            |
+| dependabot                       | **adopt** | high     | Automated dependency update PRs. Essential for long-lived projects with 10+ dependencies.                    |
+| reviewdog/action-eslint          | **adopt** | high     | Posts ESLint findings as inline PR comments. Upgraded from defer per user decision for PR review quality.    |
+| actions/dependency-review-action | **adopt** | high     | Flags vulnerable and license-risky dependencies in PRs. Added per user decision for PR review quality.       |
+| github/codeql-action             | defer     | medium   | Deep semantic security analysis. Deferred due to CI time overhead (5-15 min) and existing security coverage. |
 
 ## NPM Packages
 
@@ -91,21 +92,32 @@ Resources marked for adoption and their implementation timeline:
 - **Action:** Create `.github/dependabot.yml` with npm ecosystem, weekly schedule
 - **Config:** Target `package.json` dependencies, group minor/patch updates
 
+### 4. reviewdog/action-eslint
+
+- **When:** Phase 5 (Quality Gates) or Phase 7 (CI/CD)
+- **Action:** Add `reviewdog/action-eslint@v1` step to PR lint workflow
+- **Config:** Use `GITHUB_TOKEN` for PR comment permissions, reporter: github-pr-review
+
+### 5. actions/dependency-review-action
+
+- **When:** Phase 5 (Quality Gates) or Phase 7 (CI/CD)
+- **Action:** Add `actions/dependency-review-action@v4` step to PR CI workflow
+- **Config:** Configure license allow-list, fail on high-severity vulnerabilities
+
 ## Defer Triggers
 
 Resources that may be reconsidered when conditions change:
 
-| Resource                | Trigger for Reconsideration                              |
-| ----------------------- | -------------------------------------------------------- |
-| eslint-plugin-n         | Framework targets multiple Node.js LTS versions          |
-| eslint-plugin-jsonc     | JSON/JSONL formatting issues escape Prettier + Zod       |
-| eslint-plugin-import-x  | Import resolution bugs escape madge detection            |
-| context7                | Dependencies move beyond Claude's training cutoff        |
-| github/codeql-action    | Framework used in production with sensitive data         |
-| reviewdog/action-eslint | 3+ regular contributors to the framework                 |
-| license-checker         | Framework published as npm package or used in enterprise |
-| npm-check-updates       | Dependabot removed or insufficient                       |
-| commitlint              | Multiple human contributors making direct commits        |
+| Resource               | Trigger for Reconsideration                              |
+| ---------------------- | -------------------------------------------------------- |
+| eslint-plugin-n        | Framework targets multiple Node.js LTS versions          |
+| eslint-plugin-jsonc    | JSON/JSONL formatting issues escape Prettier + Zod       |
+| eslint-plugin-import-x | Import resolution bugs escape madge detection            |
+| context7               | Dependencies move beyond Claude's training cutoff        |
+| github/codeql-action   | Framework used in production with sensitive data         |
+| license-checker        | Framework published as npm package or used in enterprise |
+| npm-check-updates      | Dependabot removed or insufficient                       |
+| commitlint             | Multiple human contributors making direct commits        |
 
 ---
 
