@@ -13,11 +13,11 @@ Requirements for v1.0 milestone. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Framework has a single unified config file (`framework.config.json`) with local override pattern
-- [ ] **FOUND-02**: CANON directory contains schemas, standards, and templates as single codified standard
-- [ ] **FOUND-03**: 10 CANON standards documents cover all system conventions
-- [ ] **FOUND-04**: Dependency registry tracks all cross-system relationships with typed edges
-- [ ] **FOUND-05**: Outside resource survey completed (plugins, MCP, Actions, ESLint, NPM)
+- [x] **FOUND-01**: Framework has a single unified config file (`framework.config.json`) with local override pattern
+- [x] **FOUND-02**: CANON directory contains schemas, standards, and templates as single codified standard
+- [x] **FOUND-03**: 10 CANON standards documents cover all system conventions
+- [x] **FOUND-04**: Dependency registry tracks all cross-system relationships with typed edges
+- [x] **FOUND-05**: Outside resource survey completed (plugins, MCP, Actions, ESLint, NPM)
 
 ### Sanitization
 
@@ -118,11 +118,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase    | Status  |
 | ----------- | -------- | ------- |
-| FOUND-01    | Phase 1  | Pending |
-| FOUND-02    | Phase 1  | Pending |
-| FOUND-03    | Phase 1  | Pending |
-| FOUND-04    | Phase 1  | Pending |
-| FOUND-05    | Phase 1  | Pending |
+| FOUND-01    | Phase 1  | Done    |
+| FOUND-02    | Phase 1  | Done    |
+| FOUND-03    | Phase 1  | Done    |
+| FOUND-04    | Phase 1  | Done    |
+| FOUND-05    | Phase 1  | Done    |
 | SANI-01     | Phase 2  | Pending |
 | SANI-02     | Phase 2  | Pending |
 | SANI-03     | Phase 2  | Pending |
