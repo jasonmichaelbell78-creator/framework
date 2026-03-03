@@ -15,11 +15,11 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 
 - **Milestone:** Framework Migration v1.0
 - **Phase:** 1 of 10 (Foundation)
-- **Plan:** 6 of 8 complete in phase 1
+- **Plan:** 7 of 8 complete in phase 1
 - **Status:** In progress
-- **Last activity:** 2026-03-02 - Completed 01-05-PLAN.md (Templates & CANON Index)
+- **Last activity:** 2026-03-02 - Completed 01-06-PLAN.md (Dependency Registry)
 
-Progress: [██████░░] 6/8 phase plans (75%)
+Progress: [███████░] 7/8 phase plans (87%)
 
 ## Planning Artifacts
 
@@ -53,10 +53,17 @@ Progress: [██████░░] 6/8 phase plans (75%)
 | 5 tools adopted for framework integration           | 01    | 07   | eslint-plugin-security, actions/cache, dependabot, reviewdog, dep-review |
 | reviewdog/action-eslint upgraded defer->adopt       | 01    | 07   | User decision: PR review inline comments valuable early                  |
 | actions/dependency-review-action added as adopt     | 01    | 07   | User decision: vulnerability/license scanning at PR time                 |
+| Dependency registry approved as-is                  | 01    | 06   | User reviewed 176 edges, approved with phase revisit reminders           |
 
 ## Pending Todos
 
-(None)
+### Dependency Registry Revisits (from 01-06)
+
+These were requested by the user when approving the dependency registry. Re-run `node scripts/build-dependency-registry.js` at each milestone:
+
+- [ ] **Phase 4 (Migration):** Re-run dependency registry after skill/agent migration to capture skill->agent invocation edges
+- [ ] **Phase 7 (Sync):** Re-run dependency registry after sync mechanism built to capture sync-related edges
+- [ ] **Phase 9 (Polish):** Final dependency registry refresh + add CANON cross-reference edges
 
 ## Session Notes
 
@@ -70,11 +77,12 @@ Progress: [██████░░] 6/8 phase plans (75%)
 - 2026-03-02: Completed 01-04 (Remaining Standards) in 7 min
 - 2026-03-02: Completed 01-07 (Outside Resource Survey) in ~3 min
 - 2026-03-02: Completed 01-05 (Templates & CANON Index) in ~3 min
+- 2026-03-02: Completed 01-06 (Dependency Registry) in ~5 min
 
 ## Session Continuity
 
-- **Last session:** 2026-03-03T00:42:00Z
-- **Stopped at:** Completed 01-05-PLAN.md
+- **Last session:** 2026-03-03T01:15:00Z
+- **Stopped at:** Completed 01-06-PLAN.md
 - **Resume file:** None
 
 ## Version History
@@ -88,7 +96,8 @@ Progress: [██████░░] 6/8 phase plans (75%)
 | 1.4     | 2026-03-02 | Completed plan 01-03 (New CANON Standards W1)  |
 | 1.5     | 2026-03-02 | Completed plan 01-07 (Outside Resource Survey) |
 | 1.6     | 2026-03-02 | Completed plan 01-05 (Templates & CANON Index) |
+| 1.7     | 2026-03-02 | Completed plan 01-06 (Dependency Registry)     |
 
 ---
 
-_Last updated: 2026-03-03_
+_Last updated: 2026-03-02_
