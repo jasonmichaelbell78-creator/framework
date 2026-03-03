@@ -1,0 +1,29 @@
+{
+  "project": {
+    "name": "framework",
+    "description": "Reusable dev workflow framework for app/website building",
+    "repo": "jasonmichaelbell78-creator/framework"
+  },
+  "systems": {
+    "hooks": {
+      "sessionStart": { "enabled": true },
+      "preCommit": { "preset": "standard" }
+    },
+    "skills": {
+      "directory": ".claude/skills",
+      "shared": "CANON"
+    },
+    "agents": {
+      "directory": ".claude/agents"
+    },
+    "scripts": {
+      "configDir": "scripts/config"
+    },
+    "eslint": {
+      "pluginDir": "eslint-plugin-framework"
+    },
+    "tdms": {
+      "masterDebt": "docs/technical-debt/MASTER_DEBT.jsonl"
+    }
+  }
+}

@@ -2,12 +2,12 @@
 
 <!-- prettier-ignore-start -->
 **Document Version:** 1.0
-**Last Updated:** 2026-02-24
+**Last Updated:** 2026-03-02
 **Status:** ACTIVE
 <!-- prettier-ignore-end -->
 
 Common boilerplate for all single-session audit skills. Referenced via:
-`Read .claude/skills/_shared/AUDIT_TEMPLATE.md for standard audit procedures.`
+`Read CANON/templates/AUDIT_TEMPLATE.md for standard audit procedures.`
 
 ---
 

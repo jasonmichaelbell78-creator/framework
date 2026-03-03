@@ -16,6 +16,21 @@
 **Goal:** Establish the standards foundation everything else builds on.
 **Gate:** HARD — must pass before any other phase begins.
 **Requirements:** FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05
+**Plans:** 8 plans
+
+**Status:** COMPLETE (verified 2026-03-03)
+**Verification:** `.planning/phases/01-foundation/01-VERIFICATION.md` — 5/5 must-haves passed
+
+Plans:
+
+- [x] 01-01-PLAN.md — Infrastructure, Zod schemas, and framework.config.json
+- [x] 01-02-PLAN.md — Migrate SKILL_STANDARDS and AUDIT_TEMPLATE to CANON
+- [x] 01-03-PLAN.md — Write 5 new standards (AGENT, HOOK, DOC, NAMING, RECOVERY)
+- [x] 01-04-PLAN.md — Write 3 new standards (JSONL, DEPENDENCY, INTERACTION)
+- [x] 01-05-PLAN.md — Document templates and CANON_INDEX.md
+- [x] 01-06-PLAN.md — Dependency registry (auto-discovery + curated edges)
+- [x] 01-07-PLAN.md — Outside resource survey
+- [x] 01-08-PLAN.md — Phase audit and sign-off
 
 **Success criteria:**
 
@@ -204,8 +219,10 @@ Phase 1 (Foundation) ──HARD──> Phase 2 (Sanitization) ──HARD──> 
 | Version | Date       | Description                                 |
 | ------- | ---------- | ------------------------------------------- |
 | 1.0     | 2026-03-01 | Initial roadmap from GSD milestone creation |
+| 1.1     | 2026-03-02 | Phase 1 planned: 8 plans in 4 waves         |
+| 1.2     | 2026-03-03 | Phase 1 complete: 8/8 plans, 5/5 verified   |
 
 ---
 
 _Roadmap created: 2026-03-01_
-_Last updated: 2026-03-01_
+_Last updated: 2026-03-03_

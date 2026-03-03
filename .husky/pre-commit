@@ -138,8 +138,9 @@ fi
 echo "  ▶ Running lint-staged (auto-format)..."
 if npm list lint-staged --depth=0 > /dev/null 2>&1; then
   if ! npx --no-install lint-staged; then
-    # lint-staged git backup can fail on rebased/squashed branches — non-blocking if formatting is clean
-    if npx prettier --check . > /dev/null 2>&1; then
+    # lint-staged git backup can fail on rebased/squashed branches — non-blocking if staged files are formatted
+    STAGED_FOR_PRETTIER=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|jsx|ts|tsx|json|md|mdx|yml|yaml|css|html)$' || true)
+    if [ -z "$STAGED_FOR_PRETTIER" ] || printf '%s\n' "$STAGED_FOR_PRETTIER" | tr '\n' '\0' | xargs -0 npx prettier --check > /dev/null 2>&1; then
       echo "  ⚠️ Lint-staged git error (formatting is clean, continuing)"
     else
       echo "  ❌ Lint-staged failed"

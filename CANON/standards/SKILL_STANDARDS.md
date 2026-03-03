@@ -1,8 +1,8 @@
 # Skill Standards
 
 <!-- prettier-ignore-start -->
-**Document Version:** 2.0
-**Last Updated:** 2026-02-28
+**Document Version:** 1.0
+**Last Updated:** 2026-03-02
 **Status:** ACTIVE
 <!-- prettier-ignore-end -->
 
@@ -12,7 +12,29 @@ maintenance workflows.
 
 ---
 
-## Required Sections
+## Purpose
+
+Define the structural, behavioral, and quality requirements for all skills in
+the framework. This standard ensures consistency across the skill ecosystem so
+that skills are discoverable, maintainable, and predictable in their behavior.
+
+---
+
+## Scope
+
+This standard applies to:
+
+- All skill files in `.claude/skills/`
+- The `skill-creator` workflow that generates new skills
+- The `skill-ecosystem-audit` skill that validates compliance
+- Companion files (REFERENCE.md, prompts.md, etc.) within skill directories
+- Any automation that reads or validates skill metadata
+
+---
+
+## Requirements
+
+### Required Sections
 
 Every SKILL.md MUST include these sections (enforced by ecosystem audit):
 
@@ -148,19 +170,18 @@ ordering required. Wave N+1 depends on Wave N completion.
 
 ## Shared Templates
 
-Common boilerplate lives in `.claude/skills/_shared/`:
+Common boilerplate lives in `CANON/templates/`:
 
-| Template             | Purpose                                  | Used by             |
-| -------------------- | ---------------------------------------- | ------------------- |
-| `AUDIT_TEMPLATE.md`  | Evidence, TDMS intake, review procedures | All audit-\* skills |
-| `SKILL_STANDARDS.md` | This file -- structural standards        | skill-creator       |
+| Template            | Purpose                                  | Used by             |
+| ------------------- | ---------------------------------------- | ------------------- |
+| `AUDIT_TEMPLATE.md` | Evidence, TDMS intake, review procedures | All audit-\* skills |
 
 Audit skills reference the shared template instead of duplicating boilerplate:
 
 ```markdown
 ## Standard Audit Procedures
 
-> Read `.claude/skills/_shared/AUDIT_TEMPLATE.md` for: Evidence Requirements,
+> Read `CANON/templates/AUDIT_TEMPLATE.md` for: Evidence Requirements,
 > Dual-Pass Verification, JSONL Output Format, MASTER_DEBT Cross-Reference,
 > Interactive Review, TDMS Intake & Commit, and Honesty Guardrails.
 ```
@@ -189,12 +210,12 @@ Audit skills reference the shared template instead of duplicating boilerplate:
 
 ## Naming Conventions
 
-| Convention | Pattern                   | Example                  |
-| ---------- | ------------------------- | ------------------------ |
-| Skill name | lowercase-kebab-case      | `audit-code`             |
-| Directory  | `.claude/skills/<name>/`  | `.claude/skills/sprint/` |
-| Companion  | lowercase with extension  | `prompts.md`             |
-| Shared     | `.claude/skills/_shared/` | UPPERCASE filenames      |
+| Convention | Pattern                  | Example                  |
+| ---------- | ------------------------ | ------------------------ |
+| Skill name | lowercase-kebab-case     | `audit-code`             |
+| Directory  | `.claude/skills/<name>/` | `.claude/skills/sprint/` |
+| Companion  | lowercase with extension | `prompts.md`             |
+| Shared     | `CANON/templates/`       | UPPERCASE filenames      |
 
 ---
 
@@ -277,3 +298,40 @@ Skills that involve multi-step interaction SHOULD include:
 - [ ] Multi-step skills have UX guidance (progress, warm-up, closure)
 - [ ] Project conventions referenced (CLAUDE.md), not duplicated
 - [ ] Guided prompts used instead of generic `[placeholder]` text
+
+---
+
+## Enforcement
+
+This standard is enforced by `scripts/validate-skills.js`, which checks:
+
+- Required sections are present (frontmatter, When to Use, When NOT to Use, Version History)
+- Size limits are respected (warning at 300 lines, error at 500+)
+- Cross-references resolve to existing files
+- MUST/SHOULD/MAY keywords are used for requirement levels
+
+The `skill-ecosystem-audit` skill also validates compliance during periodic audits.
+
+---
+
+## Escape Hatches
+
+Deviations from this standard are permitted when justified. To override:
+
+1. Add a comment in the skill file explaining the deviation and why it is necessary
+2. Use the format: `<!-- SKILL_STANDARDS override: [section] - [reason] -->`
+3. Document the override in the skill's Version History entry
+
+Common justified deviations:
+
+- **Size limit**: Skills with complex multi-phase workflows MAY exceed 300 lines if extraction would harm readability. Document with override comment.
+- **Missing "When NOT to Use"**: Skills with no close neighbors MAY omit specific redirects, but MUST still include the section with a note explaining uniqueness.
+- **Frontmatter fields**: Internal/experimental skills MAY use minimal frontmatter during development.
+
+---
+
+## Version History
+
+| Version | Date       | Description                                 |
+| ------- | ---------- | ------------------------------------------- |
+| 1.0     | 2026-03-02 | Migrated to CANON/standards/ from \_shared/ |

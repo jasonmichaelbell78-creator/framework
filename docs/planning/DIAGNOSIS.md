@@ -269,8 +269,8 @@ ECOSYSTEM HEALTH MONITORING
 
 **Missing Infrastructure:**
 
-- `_shared/SKILL_STANDARDS.md` — Canonical skill structure standard (NOT migrated)
-- `_shared/AUDIT_TEMPLATE.md` — Common audit boilerplate (NOT migrated)
+- `CANON/standards/SKILL_STANDARDS.md` — Canonical skill structure standard (migrated from \_shared/)
+- `CANON/templates/AUDIT_TEMPLATE.md` — Common audit boilerplate (migrated from \_shared/)
 - `skill-config.json` topics have Firebase-specific aliases
 - `skill-registry.json` needs regeneration after migration
 
@@ -530,26 +530,26 @@ correctly in both environments.
 
 #### S0 — Critical (5 gaps)
 
-| ID     | Gap                                          | System        |
-| ------ | -------------------------------------------- | ------------- |
-| GAP-01 | Shared skill standards missing               | Skills        |
-|        | `_shared/SKILL_STANDARDS.md` and             |               |
-|        | `_shared/AUDIT_TEMPLATE.md` not migrated.    |               |
-|        | All audit skills depend on these.            |               |
-| GAP-02 | Pre-commit waves 4-11 missing                | Quality Gates |
-|        | Only 3 of 11 waves. Missing waves include    |               |
-|        | TDMS schema validation, cross-doc deps,      |               |
-|        | and doc index auto-update.                   |               |
-| GAP-03 | normalize-file-path hardcodes "sonash-v0"    | Scripts       |
-|        | Default repo name affects TDMS content       |               |
-|        | hashing and deduplication across the system. |               |
-| GAP-04 | post-write-validator has 4 Firebase-specific | Hooks         |
-|        | validators without parameterization.         |               |
-|        | These will block or warn incorrectly in      |               |
-|        | non-Firebase projects.                       |               |
-| GAP-05 | No upstream sync mechanism exists            | Sync          |
-|        | No way to pull improvements from sonash      |               |
-|        | without manual file-by-file comparison.      |               |
+| ID     | Gap                                            | System        |
+| ------ | ---------------------------------------------- | ------------- |
+| GAP-01 | Shared skill standards missing                 | Skills        |
+|        | Standards files migrated to CANON.             |               |
+|        | (was \_shared/, now CANON/standards+templates) |               |
+|        | All audit skills depend on these.              |               |
+| GAP-02 | Pre-commit waves 4-11 missing                  | Quality Gates |
+|        | Only 3 of 11 waves. Missing waves include      |               |
+|        | TDMS schema validation, cross-doc deps,        |               |
+|        | and doc index auto-update.                     |               |
+| GAP-03 | normalize-file-path hardcodes "sonash-v0"      | Scripts       |
+|        | Default repo name affects TDMS content         |               |
+|        | hashing and deduplication across the system.   |               |
+| GAP-04 | post-write-validator has 4 Firebase-specific   | Hooks         |
+|        | validators without parameterization.           |               |
+|        | These will block or warn incorrectly in        |               |
+|        | non-Firebase projects.                         |               |
+| GAP-05 | No upstream sync mechanism exists              | Sync          |
+|        | No way to pull improvements from sonash        |               |
+|        | without manual file-by-file comparison.        |               |
 
 #### S1 — High (12 gaps)
 
@@ -715,7 +715,7 @@ items need to become configurable:
 ### Phase 0: Foundation (Effort: S — 2-4 hours)
 
 1. Fix S0 gaps that block everything else:
-   - Migrate `_shared/SKILL_STANDARDS.md` and `_shared/AUDIT_TEMPLATE.md`
+   - Migrate standards to CANON (SKILL_STANDARDS.md, AUDIT_TEMPLATE.md) [DONE]
    - Fix `normalize-file-path.js` hardcoded "sonash-v0"
    - Create framework parameterization config file (`framework.config.json` or
      similar) for project-specific overrides
