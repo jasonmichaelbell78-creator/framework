@@ -25,9 +25,7 @@ export const baseRecordSchema = z.object({
     ),
 
   /** ISO 8601 timestamp of record creation */
-  timestamp: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/, 'Must be an ISO 8601 UTC timestamp'),
+  timestamp: z.string().datetime({ message: 'Must be an ISO 8601 UTC timestamp' }),
 
   /** Semantic version of the record schema */
   version: z.string().regex(/^\d+\.\d+\.\d+$/, 'Must be a valid semver string (e.g., 1.0.0)'),

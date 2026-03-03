@@ -30,10 +30,17 @@ const path = require('node:path');
 // ---------------------------------------------------------------------------
 const args = process.argv.slice(2);
 const sourceIdx = args.indexOf('--source');
-const SOURCE_ROOT =
-  sourceIdx !== -1 && args[sourceIdx + 1]
-    ? path.resolve(args[sourceIdx + 1])
-    : path.resolve(__dirname, '..');
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+const SOURCE_ROOT = (() => {
+  if (sourceIdx === -1 || !args[sourceIdx + 1]) return PROJECT_ROOT;
+  const resolved = path.resolve(args[sourceIdx + 1]);
+  const rel = path.relative(PROJECT_ROOT, resolved);
+  if (rel.startsWith('..') || path.isAbsolute(rel)) {
+    process.stderr.write(`ERROR: --source must be inside project root: ${resolved}\n`);
+    process.exit(1);
+  }
+  return resolved;
+})();
 
 const JSONL_PATH = path.join(SOURCE_ROOT, 'CANON', 'DEPENDENCY_GRAPH.jsonl');
 const MD_PATH = path.join(SOURCE_ROOT, 'CANON', 'DEPENDENCY_GRAPH.md');
@@ -68,8 +75,7 @@ try {
 
 /** Normalise path to forward slashes and make relative to SOURCE_ROOT. */
 function toRelative(absPath) {
-  const rel = path.relative(SOURCE_ROOT, absPath).replace(/\\/g, '/');
-  return rel;
+  return path.relative(SOURCE_ROOT, absPath).replaceAll('\\', '/');
 }
 
 /** Create a JSONL dependency record. */
@@ -147,139 +153,91 @@ function discoverCodeDependencies() {
 // ---------------------------------------------------------------------------
 
 function getCuratedEdges() {
-  const edges = [];
+  const curated = (source, target, type, description) =>
+    makeRecord(source, target, type, 'high', { discoveredBy: 'curated', description });
 
-  // --- hooks -> hook libs (requires) ---
-  edges.push(
-    makeRecord('.claude/hooks', '.claude/hooks/lib', 'requires', 'high', {
-      discoveredBy: 'curated',
-      description: 'Hook system requires shared hook libraries',
-    }),
-  );
-
-  // --- hooks -> settings.json (references) ---
-  edges.push(
-    makeRecord('.claude/hooks', '.claude/settings.json', 'references', 'high', {
-      discoveredBy: 'curated',
-      description: 'Hooks are registered and configured in settings.json',
-    }),
-  );
-
-  // --- skills -> agents (invokes) ---
-  edges.push(
-    makeRecord('.claude/skills', '.claude/agents', 'invokes', 'high', {
-      discoveredBy: 'curated',
-      description: 'Skills invoke specialized agents for complex tasks',
-    }),
-  );
-
-  // --- pre-commit -> ESLint plugin (validates) ---
-  edges.push(
-    makeRecord('.husky/pre-commit', 'eslint-plugin-framework', 'validates', 'high', {
-      discoveredBy: 'curated',
-      description: 'Pre-commit hook runs ESLint with framework plugin rules',
-    }),
-  );
-
-  // --- CI workflows -> scripts (invokes) ---
-  edges.push(
-    makeRecord('.github/workflows', 'scripts', 'invokes', 'high', {
-      discoveredBy: 'curated',
-      description: 'CI workflows invoke project scripts for linting, testing, audits',
-    }),
-  );
-
-  // --- CI workflows -> ESLint plugin (validates) ---
-  edges.push(
-    makeRecord('.github/workflows/ci.yml', 'eslint-plugin-framework', 'validates', 'high', {
-      discoveredBy: 'curated',
-      description: 'CI workflow runs ESLint with framework plugin',
-    }),
-  );
-
-  // --- CANON standards -> enforcement scripts (validates) ---
-  edges.push(
-    makeRecord('CANON/standards', 'scripts', 'validates', 'high', {
-      discoveredBy: 'curated',
-      description: 'CANON standards are enforced by project scripts',
-    }),
-  );
-
-  // --- CANON standards -> ESLint plugin (validates) ---
-  edges.push(
-    makeRecord('CANON/standards', 'eslint-plugin-framework', 'validates', 'high', {
-      discoveredBy: 'curated',
-      description: 'CANON standards are enforced by custom ESLint rules',
-    }),
-  );
-
-  // --- CANON schemas -> standards (extends) ---
-  edges.push(
-    makeRecord('CANON/schemas', 'CANON/standards', 'extends', 'high', {
-      discoveredBy: 'curated',
-      description: 'Schemas implement validation for standards',
-    }),
-  );
-
-  // --- scripts/lib -> scripts (requires) ---
-  edges.push(
-    makeRecord('scripts', 'scripts/lib', 'requires', 'high', {
-      discoveredBy: 'curated',
-      description: 'Root scripts use shared library modules',
-    }),
-  );
-
-  // --- scripts -> scripts/config (references) ---
-  edges.push(
-    makeRecord('scripts', 'scripts/config', 'references', 'high', {
-      discoveredBy: 'curated',
-      description: 'Scripts load configuration from scripts/config/',
-    }),
-  );
-
-  // --- git commit -> pre-commit hook (triggers) ---
-  edges.push(
-    makeRecord('git:commit', '.husky/pre-commit', 'triggers', 'high', {
-      discoveredBy: 'curated',
-      description: 'Git commit triggers the pre-commit hook',
-    }),
-  );
-
-  // --- git push -> pre-push hook (triggers) ---
-  edges.push(
-    makeRecord('git:push', '.husky/pre-push', 'triggers', 'high', {
-      discoveredBy: 'curated',
-      description: 'Git push triggers the pre-push hook',
-    }),
-  );
-
-  // --- trace-dependencies -> DEPENDENCY_GRAPH (generates) ---
-  edges.push(
-    makeRecord(
+  const edges = [
+    curated(
+      '.claude/hooks',
+      '.claude/hooks/lib',
+      'requires',
+      'Hook system requires shared hook libraries',
+    ),
+    curated(
+      '.claude/hooks',
+      '.claude/settings.json',
+      'references',
+      'Hooks are registered and configured in settings.json',
+    ),
+    curated(
+      '.claude/skills',
+      '.claude/agents',
+      'invokes',
+      'Skills invoke specialized agents for complex tasks',
+    ),
+    curated(
+      '.husky/pre-commit',
+      'eslint-plugin-framework',
+      'validates',
+      'Pre-commit hook runs ESLint with framework plugin rules',
+    ),
+    curated(
+      '.github/workflows',
+      'scripts',
+      'invokes',
+      'CI workflows invoke project scripts for linting, testing, audits',
+    ),
+    curated(
+      '.github/workflows/ci.yml',
+      'eslint-plugin-framework',
+      'validates',
+      'CI workflow runs ESLint with framework plugin',
+    ),
+    curated(
+      'CANON/standards',
+      'scripts',
+      'validates',
+      'CANON standards are enforced by project scripts',
+    ),
+    curated(
+      'CANON/standards',
+      'eslint-plugin-framework',
+      'validates',
+      'CANON standards are enforced by custom ESLint rules',
+    ),
+    curated(
+      'CANON/schemas',
+      'CANON/standards',
+      'extends',
+      'Schemas implement validation for standards',
+    ),
+    curated('scripts', 'scripts/lib', 'requires', 'Root scripts use shared library modules'),
+    curated(
+      'scripts',
+      'scripts/config',
+      'references',
+      'Scripts load configuration from scripts/config/',
+    ),
+    curated(
+      'git:commit',
+      '.husky/pre-commit',
+      'triggers',
+      'Git commit triggers the pre-commit hook',
+    ),
+    curated('git:push', '.husky/pre-push', 'triggers', 'Git push triggers the pre-push hook'),
+    curated(
       'scripts/trace-dependencies.js',
       'CANON/DEPENDENCY_GRAPH.jsonl',
       'generates',
-      'high',
-      {
-        discoveredBy: 'curated',
-        description: 'trace-dependencies output feeds the dependency registry',
-      },
+      'trace-dependencies output feeds the dependency registry',
     ),
-  );
-
-  // --- build-dependency-registry -> DEPENDENCY_GRAPH (generates) ---
-  edges.push(
-    makeRecord(
+    curated(
       'scripts/build-dependency-registry.js',
       'CANON/DEPENDENCY_GRAPH.jsonl',
       'generates',
-      'high',
-      {
-        discoveredBy: 'curated',
-        description: 'build-dependency-registry creates the JSONL and MD views',
-      },
+      'build-dependency-registry creates the JSONL and MD views',
     ),
-  );
+  ];
 
   process.stderr.write(`  Added ${edges.length} curated system-level edges\n`);
   return edges;
@@ -312,10 +270,7 @@ function deduplicateEdges(records) {
 // ---------------------------------------------------------------------------
 
 function writeJsonl(records) {
-  const dir = path.dirname(JSONL_PATH);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+  fs.mkdirSync(path.dirname(JSONL_PATH), { recursive: true });
 
   const content = records.map((r) => JSON.stringify(r)).join('\n') + '\n';
   safeAtomicWriteSync(JSONL_PATH, content);
@@ -332,21 +287,21 @@ function generateMarkdown(records) {
   const lines = [];
   const now = new Date().toISOString().replace(/T.*/, '');
 
-  lines.push('# Dependency Graph');
-  lines.push('');
-  lines.push('<!-- prettier-ignore-start -->');
-  lines.push(`**Generated:** ${now}`);
-  lines.push(`**Total Edges:** ${records.length}`);
-  lines.push('**Source:** `scripts/build-dependency-registry.js`');
-  lines.push('<!-- prettier-ignore-end -->');
-  lines.push('');
-  lines.push('> This file is auto-generated from `CANON/DEPENDENCY_GRAPH.jsonl`.');
   lines.push(
+    '# Dependency Graph',
+    '',
+    '<!-- prettier-ignore-start -->',
+    `**Generated:** ${now}`,
+    `**Total Edges:** ${records.length}`,
+    '**Source:** `scripts/build-dependency-registry.js`',
+    '<!-- prettier-ignore-end -->',
+    '',
+    '> This file is auto-generated from `CANON/DEPENDENCY_GRAPH.jsonl`.',
     '> Do NOT edit directly. Run `node scripts/build-dependency-registry.js` to regenerate.',
+    '',
+    '---',
+    '',
   );
-  lines.push('');
-  lines.push('---');
-  lines.push('');
 
   // --- Summary by type ---
   const byType = {};
@@ -360,12 +315,14 @@ function generateMarkdown(records) {
     byDiscovery[method] = (byDiscovery[method] || 0) + 1;
   }
 
-  lines.push('## Summary');
-  lines.push('');
-  lines.push('### Edges by Relationship Type');
-  lines.push('');
-  lines.push('| Type | Count |');
-  lines.push('| ---- | ----- |');
+  lines.push(
+    '## Summary',
+    '',
+    '### Edges by Relationship Type',
+    '',
+    '| Type | Count |',
+    '| ---- | ----- |',
+  );
   for (const type of [
     'requires',
     'invokes',
@@ -375,37 +332,20 @@ function generateMarkdown(records) {
     'validates',
     'extends',
   ]) {
-    if (byType[type]) {
-      lines.push(`| \`${type}\` | ${byType[type]} |`);
-    }
+    if (byType[type]) lines.push(`| \`${type}\` | ${byType[type]} |`);
   }
-  lines.push('');
 
-  lines.push('### Edges by Confidence');
-  lines.push('');
-  lines.push('| Confidence | Count |');
-  lines.push('| ---------- | ----- |');
+  lines.push('', '### Edges by Confidence', '', '| Confidence | Count |', '| ---------- | ----- |');
   for (const conf of ['high', 'medium', 'low']) {
-    if (byConfidence[conf]) {
-      lines.push(`| ${conf} | ${byConfidence[conf]} |`);
-    }
+    if (byConfidence[conf]) lines.push(`| ${conf} | ${byConfidence[conf]} |`);
   }
-  lines.push('');
 
-  lines.push('### Edges by Discovery Method');
-  lines.push('');
-  lines.push('| Method | Count |');
-  lines.push('| ------ | ----- |');
+  lines.push('', '### Edges by Discovery Method', '', '| Method | Count |', '| ------ | ----- |');
   for (const [method, count] of Object.entries(byDiscovery).sort((a, b) => b[1] - a[1])) {
     lines.push(`| ${method} | ${count} |`);
   }
-  lines.push('');
-  lines.push('---');
-  lines.push('');
 
-  // --- Edges grouped by source system ---
-  lines.push('## Dependency Edges');
-  lines.push('');
+  lines.push('', '---', '', '## Dependency Edges', '');
 
   // Group by source system (first path segment or prefix)
   const groups = {};
@@ -442,10 +382,12 @@ function generateMarkdown(records) {
 
   for (const group of sortedGroups) {
     const edges = groups[group];
-    lines.push(`### ${group}`);
-    lines.push('');
-    lines.push('| Source | Target | Type | Confidence |');
-    lines.push('| ------ | ------ | ---- | ---------- |');
+    lines.push(
+      `### ${group}`,
+      '',
+      '| Source | Target | Type | Confidence |',
+      '| ------ | ------ | ---- | ---------- |',
+    );
     for (const e of edges.sort(
       (a, b) => a.source.localeCompare(b.source) || a.target.localeCompare(b.target),
     )) {
@@ -454,34 +396,38 @@ function generateMarkdown(records) {
     lines.push('');
   }
 
-  lines.push('---');
-  lines.push('');
-  lines.push('*Auto-generated by `scripts/build-dependency-registry.js`*');
-  lines.push('');
+  lines.push('---', '', '*Auto-generated by `scripts/build-dependency-registry.js`*', '');
 
   const content = lines.join('\n');
   safeAtomicWriteSync(MD_PATH, content);
   process.stderr.write(`  Wrote markdown view to ${path.relative(SOURCE_ROOT, MD_PATH)}\n`);
 }
 
+/** Prefix-to-group mappings for source categorization, ordered longest-first. */
+const SOURCE_GROUP_PREFIXES = [
+  ['git:', 'Git Events'],
+  ['.claude/hooks/lib/', 'Hook Libraries'],
+  ['.claude/hooks/', 'Hooks'],
+  ['.claude/hooks', 'Hooks'],
+  ['.claude/skills/', 'Skills'],
+  ['.claude/agents/', 'Agents'],
+  ['.github/workflows/', 'CI Workflows'],
+  ['.husky/', 'Git Events'],
+  ['eslint-plugin-framework/', 'ESLint Plugin'],
+  ['eslint-plugin-framework', 'ESLint Plugin'],
+  ['CANON/', 'CANON'],
+  ['scripts/lib/', 'Scripts (lib)'],
+  ['scripts/config/', 'Scripts (config)'],
+  ['scripts/debt/', 'Scripts (debt)'],
+  ['scripts/', 'Scripts'],
+  ['scripts', 'Scripts'],
+];
+
 /** Categorize a source path into a human-readable system group. */
 function categorizeSource(source) {
-  if (source.startsWith('git:')) return 'Git Events';
-  if (source.startsWith('.claude/hooks/lib')) return 'Hook Libraries';
-  if (source.startsWith('.claude/hooks')) return 'Hooks';
-  if (source.startsWith('.claude/skills')) return 'Skills';
-  if (source.startsWith('.claude/agents')) return 'Agents';
-  if (source.startsWith('.github/workflows')) return 'CI Workflows';
-  if (source.startsWith('.husky/')) return 'Git Events';
-  if (source.startsWith('eslint-plugin-framework')) return 'ESLint Plugin';
-  if (source.startsWith('CANON/schemas')) return 'CANON';
-  if (source.startsWith('CANON/standards')) return 'CANON';
-  if (source.startsWith('CANON')) return 'CANON';
-  if (source.startsWith('scripts/lib/')) return 'Scripts (lib)';
-  if (source.startsWith('scripts/config/')) return 'Scripts (config)';
-  if (source.startsWith('scripts/debt/')) return 'Scripts (debt)';
-  if (source.startsWith('scripts/')) return 'Scripts';
-  if (source.startsWith('scripts')) return 'Scripts';
+  for (const [prefix, group] of SOURCE_GROUP_PREFIXES) {
+    if (source.startsWith(prefix)) return group;
+  }
   return 'Other';
 }
 
