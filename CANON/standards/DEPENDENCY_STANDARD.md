@@ -205,6 +205,19 @@ The dependency registry MUST be checked for staleness:
 
 ---
 
+## Escape Hatches
+
+- **New relationship type:** If none of the 7 types fit, use `references` with a
+  `metadata.note` field explaining the actual relationship. File a proposal to
+  add a new type to this standard.
+- **Emergency edge addition:** During incident response, dependency edges MAY be
+  added directly to the JSONL without interactive review, but MUST be flagged
+  with `confidence: "low"` and reviewed at the next `/review-deps` session.
+- **Skipping staleness check:** Phase gate staleness checks MAY be bypassed with
+  documented justification if the phase does not modify any dependency sources.
+
+---
+
 ## References
 
 - `CANON/standards/JSONL_STANDARD.md` -- Base JSONL format and patterns

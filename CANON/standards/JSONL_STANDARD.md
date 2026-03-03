@@ -186,6 +186,20 @@ export const debtRecordSchema = baseRecordSchema.extend({
 
 ---
 
+## Escape Hatches
+
+- **Legacy JSONL files:** Existing JSONL files that predate this standard MAY
+  omit base record fields (`id`, `timestamp`, `version`) until they are migrated.
+  Migration SHOULD occur when the file is next modified.
+- **External tool output:** JSONL produced by external tools (e.g., ESLint JSON
+  formatter) does not need to conform to the base record schema. Wrapper scripts
+  SHOULD transform external JSONL into the canonical format before persisting.
+- **Temporary scratch files:** JSONL files in `.claude/state/` used as transient
+  scratch space MAY skip atomic write patterns if they are regenerated from
+  source on every read.
+
+---
+
 ## References
 
 - `CANON/schemas/base-record.schema.ts` -- Zod schema for base record fields

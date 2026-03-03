@@ -251,6 +251,21 @@ Options:
 
 ---
 
+## Escape Hatches
+
+- **Skipping confirmation:** For automated batch operations where the user has
+  pre-approved the scope (e.g., GSD plan execution with `autonomous: true`),
+  destructive operations MAY skip per-item confirmation while still logging each
+  action.
+- **Minimal progress output:** For operations that complete in under 5 seconds,
+  progress indicators MAY be omitted entirely. A completion message is still
+  REQUIRED.
+- **Raw output mode:** Skills invoked with a `--raw` or `--json` flag MAY return
+  unformatted output for programmatic consumption. This overrides the standard
+  output structure requirements.
+
+---
+
 ## References
 
 - `CANON/standards/SKILL_STANDARDS.md` -- Skill structural requirements

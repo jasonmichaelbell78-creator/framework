@@ -12,7 +12,29 @@ maintenance workflows.
 
 ---
 
-## Required Sections
+## Purpose
+
+Define the structural, behavioral, and quality requirements for all skills in
+the framework. This standard ensures consistency across the skill ecosystem so
+that skills are discoverable, maintainable, and predictable in their behavior.
+
+---
+
+## Scope
+
+This standard applies to:
+
+- All skill files in `.claude/skills/`
+- The `skill-creator` workflow that generates new skills
+- The `skill-ecosystem-audit` skill that validates compliance
+- Companion files (REFERENCE.md, prompts.md, etc.) within skill directories
+- Any automation that reads or validates skill metadata
+
+---
+
+## Requirements
+
+### Required Sections
 
 Every SKILL.md MUST include these sections (enforced by ecosystem audit):
 
