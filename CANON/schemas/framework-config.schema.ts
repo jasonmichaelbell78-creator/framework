@@ -51,8 +51,8 @@ const skillsSystemSchema = z.object({
   /** Skills directory path */
   directory: z.string().default('.claude/skills'),
 
-  /** Shared skills resources path */
-  shared: z.string().default('.claude/skills/_shared'),
+  /** Shared skills resources path (CANON standards/templates) */
+  shared: z.string().default('CANON'),
 });
 
 const agentsSystemSchema = z.object({
@@ -85,7 +85,7 @@ const systemsSchema = z.object({
   /** Skills system configuration */
   skills: skillsSystemSchema.default({
     directory: '.claude/skills',
-    shared: '.claude/skills/_shared',
+    shared: 'CANON',
   }),
 
   /** Agents system configuration */
@@ -134,7 +134,7 @@ export const frameworkConfigSchema = z.object({
     },
     skills: {
       directory: '.claude/skills',
-      shared: '.claude/skills/_shared',
+      shared: 'CANON',
     },
     agents: { directory: '.claude/agents' },
     scripts: { configDir: 'scripts/config' },

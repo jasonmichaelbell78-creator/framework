@@ -11,7 +11,7 @@
     },
     "skills": {
       "directory": ".claude/skills",
-      "shared": ".claude/skills/_shared"
+      "shared": "CANON"
     },
     "agents": {
       "directory": ".claude/agents"

@@ -46,28 +46,8 @@ const JSONL_PATH = path.join(SOURCE_ROOT, 'CANON', 'DEPENDENCY_GRAPH.jsonl');
 const MD_PATH = path.join(SOURCE_ROOT, 'CANON', 'DEPENDENCY_GRAPH.md');
 const TRACE_SCRIPT = path.join(SOURCE_ROOT, 'scripts', 'trace-dependencies.js');
 
-// Use safe-fs for atomic writes
-let safeAtomicWriteSync;
-try {
-  ({ safeAtomicWriteSync } = require(path.join(__dirname, 'lib', 'safe-fs.js')));
-} catch {
-  // Fallback: manual tmp+rename pattern
-  safeAtomicWriteSync = (filePath, data) => {
-    const absPath = path.resolve(filePath);
-    const tmpPath = `${absPath}.tmp.${process.pid}`;
-    try {
-      fs.writeFileSync(tmpPath, data, 'utf8');
-      fs.renameSync(tmpPath, absPath);
-    } catch (err) {
-      try {
-        fs.unlinkSync(tmpPath);
-      } catch {
-        /* cleanup best-effort */
-      }
-      throw err;
-    }
-  };
-}
+// Use safe-fs for atomic writes (no fallback — symlink guard is required)
+const { safeAtomicWriteSync } = require(path.join(__dirname, 'lib', 'safe-fs.js'));
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -78,11 +58,21 @@ function toRelative(absPath) {
   return path.relative(SOURCE_ROOT, absPath).replaceAll('\\', '/');
 }
 
-/** Create a JSONL dependency record. */
+/**
+ * Create a deterministic ID from an edge key (source|target|type).
+ * Uses SHA-256 truncated to 32 hex chars formatted as a UUID-like string
+ * so that reruns produce the same IDs for unchanged edges.
+ */
+function deterministicId(edgeKey) {
+  const hex = crypto.createHash('sha256').update(edgeKey).digest('hex').slice(0, 32);
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
+}
+
+/** Create a JSONL dependency record with deterministic id (no churn on rerun). */
 function makeRecord(source, target, type, confidence, metadata) {
+  const edgeKey = `${source}|${target}|${type}`;
   return {
-    id: crypto.randomUUID(),
-    timestamp: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
+    id: deterministicId(edgeKey),
     version: '1.0.0',
     source,
     target,
