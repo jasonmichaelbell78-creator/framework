@@ -15,11 +15,11 @@ See: .planning/PROJECT.md (updated 2026-03-01)
 
 - **Milestone:** Framework Migration v1.0
 - **Phase:** 1 of 10 (Foundation)
-- **Plan:** 5 of 8 complete in phase 1
+- **Plan:** 6 of 8 complete in phase 1
 - **Status:** In progress
-- **Last activity:** 2026-03-02 - Completed 01-07-PLAN.md (Outside Resource Survey)
+- **Last activity:** 2026-03-02 - Completed 01-05-PLAN.md (Templates & CANON Index)
 
-Progress: [█████░░░] 5/8 phase plans (63%)
+Progress: [██████░░] 6/8 phase plans (75%)
 
 ## Planning Artifacts
 
@@ -69,12 +69,13 @@ Progress: [█████░░░] 5/8 phase plans (63%)
 - 2026-03-02: Completed 01-03 (New CANON Standards Wave 1) in 9 min
 - 2026-03-02: Completed 01-04 (Remaining Standards) in 7 min
 - 2026-03-02: Completed 01-07 (Outside Resource Survey) in ~3 min
+- 2026-03-02: Completed 01-05 (Templates & CANON Index) in ~3 min
 
 ## Session Continuity
 
-- **Last session:** 2026-03-03T00:10:00Z
-- **Stopped at:** Completed 01-07-PLAN.md
-- **Resume file:** .planning/phases/01-foundation/01-05-PLAN.md
+- **Last session:** 2026-03-03T00:42:00Z
+- **Stopped at:** Completed 01-05-PLAN.md
+- **Resume file:** None
 
 ## Version History
 
@@ -86,6 +87,7 @@ Progress: [█████░░░] 5/8 phase plans (63%)
 | 1.3     | 2026-03-02 | Completed plan 01-04 (Remaining Standards)     |
 | 1.4     | 2026-03-02 | Completed plan 01-03 (New CANON Standards W1)  |
 | 1.5     | 2026-03-02 | Completed plan 01-07 (Outside Resource Survey) |
+| 1.6     | 2026-03-02 | Completed plan 01-05 (Templates & CANON Index) |
 
 ---
 
